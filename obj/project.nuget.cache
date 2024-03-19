@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "NGaO7oRv0EyKgkt+Jg+C1X2/nw4oz+7dHTiFXlhE0oFYbdD10DFFypbxS7ol24Z9F7yFnIkolmtSttYTYqn5LQ==",
+  "dgSpecHash": "JmSDSn8IFLpeWvVDPtoRijJ8EsKp7fUv9rE7/thSZ5L5j0LVxRRIHptSxNRqhmOvRABt6MVm4S/xrrmI8rYYkQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\EduSchool.csproj",
   "expectedPackageFiles": [
@@ -57,7 +57,7 @@
     "C:\\Users\\Kristof\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\Kristof\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\Kristof\\.nuget\\packages\\mysqlconnector\\2.3.5\\mysqlconnector.2.3.5.nupkg.sha512",
-    "C:\\Users\\Kristof\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\8.0.2\\pomelo.entityframeworkcore.mysql.8.0.2.nupkg.sha512",
+    "C:\\Users\\Kristof\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\8.0.0\\pomelo.entityframeworkcore.mysql.8.0.0.nupkg.sha512",
     "C:\\Users\\Kristof\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\Kristof\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\Kristof\\.nuget\\packages\\system.composition\\6.0.0\\system.composition.6.0.0.nupkg.sha512",

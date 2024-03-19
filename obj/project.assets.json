@@ -1082,10 +1082,10 @@
           }
         }
       },
-      "Pomelo.EntityFrameworkCore.MySql/8.0.2": {
+      "Pomelo.EntityFrameworkCore.MySql/8.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Relational": "[8.0.2, 8.0.999]",
+          "Microsoft.EntityFrameworkCore.Relational": "[8.0.0, 8.0.999]",
           "MySqlConnector": "2.3.5"
         },
         "compile": {
@@ -3518,10 +3518,10 @@
         "mysqlconnector.nuspec"
       ]
     },
-    "Pomelo.EntityFrameworkCore.MySql/8.0.2": {
-      "sha512": "XjnlcxVBLnEMbyEc5cZzgZeDyLvAniACZQ04W1slWN0f4rmfNzl98gEMvHnFH0fMDF06z9MmgGi/Sr7hJ+BVnw==",
+    "Pomelo.EntityFrameworkCore.MySql/8.0.0": {
+      "sha512": "wEzKTeYCs/+cGSpT5zE8UrKkJyqpJ24yBufthDoCWUhpCCYUIsMKeX4fvaYcm9mbkfHP2dZ+p6V+ZKTAZ3hXRQ==",
       "type": "package",
-      "path": "pomelo.entityframeworkcore.mysql/8.0.2",
+      "path": "pomelo.entityframeworkcore.mysql/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3529,7 +3529,7 @@
         "icon.png",
         "lib/net8.0/Pomelo.EntityFrameworkCore.MySql.dll",
         "lib/net8.0/Pomelo.EntityFrameworkCore.MySql.xml",
-        "pomelo.entityframeworkcore.mysql.8.0.2.nupkg.sha512",
+        "pomelo.entityframeworkcore.mysql.8.0.0.nupkg.sha512",
         "pomelo.entityframeworkcore.mysql.nuspec"
       ]
     },
@@ -4715,7 +4715,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.3",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.3",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.19.6",
-      "Pomelo.EntityFrameworkCore.MySql >= 8.0.2"
+      "Pomelo.EntityFrameworkCore.MySql >= 8.0.0"
     ]
   },
   "packageFolders": {
@@ -4793,7 +4793,7 @@
           },
           "Pomelo.EntityFrameworkCore.MySql": {
             "target": "Package",
-            "version": "[8.0.2, )"
+            "version": "[8.0.0, )"
           }
         },
         "imports": [
