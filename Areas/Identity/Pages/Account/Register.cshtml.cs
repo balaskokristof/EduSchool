@@ -132,8 +132,54 @@ namespace EduSchool.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                                               $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    #region emailhtml
+                    await _emailSender.SendEmailAsync(Input.Email, "Erősítsd meg az EduSchool regisztrációd",
+    $@"
+    <!DOCTYPE html>
+    <html lang='hu'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                padding: 20px;
+            }}
+            .container {{
+                max-width: 600px;
+                margin: auto;
+                background: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }}
+            h2 {{
+                color: #333;
+            }}
+            p {{
+                color: #666;
+            }}
+            .btn {{
+                display: inline-block;
+                background-color: #007bff;
+                color: #fff;
+                text-decoration: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <h2>Erősítsd meg az EduSchool regisztrációd</h2>
+            <p>Kérlek erősítsd meg a fiókodat az alábbi linkre kattintva:</p>
+            <a href='{HtmlEncoder.Default.Encode(callbackUrl)}' class='btn'>FIÓK MEGERŐSÍTÉSE</a>
+        </div>
+    </body>
+    </html>
+    ");
+                    #endregion
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

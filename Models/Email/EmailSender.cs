@@ -7,8 +7,8 @@ namespace EduSchool.Models.Email
     {
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var mail = "kristof@kopajler.hu";
-            var password = "Monita20042011.";
+            var mail = "eduschool@kopajler.hu";
+            var password = "UsG&n304b-PD8dcd";
 
             var client = new SmtpClient("smtp.forpsi.com")
             {
