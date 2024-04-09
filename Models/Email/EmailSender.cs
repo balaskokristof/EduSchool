@@ -18,7 +18,7 @@ namespace EduSchool.Models.Email
             };
 
             return client.SendMailAsync(
-                               new MailMessage(mail, email, subject, htmlMessage) { IsBodyHtml = true });
+            new MailMessage(mail, email, subject, htmlMessage) { IsBodyHtml = true });
 
         }
     }

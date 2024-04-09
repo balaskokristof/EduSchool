@@ -3,7 +3,7 @@
     public class Absence
     {
         public int AbsenceID { get; set; }
-        public int StudentID { get; set; }
+        public string StudentID { get; set; }
         public int CourseID { get; set; }
         public DateTime Date { get; set; }
         public int AbsenceTypeID { get; set; }

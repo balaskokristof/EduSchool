@@ -10,34 +10,38 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using EduSchool.Models.Email;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using EduSchool.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using EduSchool.Models.Email;
+using EduSchool.Models.DataModel;
+using EduSchool.Models.Context;
 
 namespace EduSchool.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly Models.Email.IEmailSender _emailSender;
+        private readonly EduContext _context;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            IUserStore<IdentityUser> userStore,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            IUserStore<ApplicationUser> userStore,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            Models.Email.IEmailSender emailSender)
-
+            Models.Email.IEmailSender emailSender,
+            EduContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -45,6 +49,7 @@ namespace EduSchool.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         /// <summary>
@@ -76,8 +81,8 @@ namespace EduSchool.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Az email cím megadása kötelező.")]
+            [EmailAddress(ErrorMessage = "Az email cím formátuma nem megfelelő.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -85,20 +90,50 @@ namespace EduSchool.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "A jelszó megadása kötelező.")]
+            [StringLength(100, ErrorMessage = "A(z) {0} legalább {2}, legfeljebb pedig {1} karakter hosszú kell legyen.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Jelszó")]
             public string Password { get; set; }
+
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Jelszó megerősítése")]
+            [Compare("Password", ErrorMessage = "A két jelszó nem egyezik.")]
             public string ConfirmPassword { get; set; }
+
+            //Username
+            [Required]
+            [StringLength(100, ErrorMessage = "A {0} legalább {2} és legfeljebb {1} karakterből állhat.", MinimumLength = 3)]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
+            //FirstName
+            [Required]
+            [StringLength(100, ErrorMessage = "A {0} legalább {2} és legfeljebb {1} karakterből állhat.", MinimumLength = 3)]
+            [Display(Name = "Keresztnév")]
+            public string FirstName { get; set; }
+
+            //LastName
+            [Required]
+            [StringLength(100, ErrorMessage = "A {0} legalább {2} és legfeljebb {1} karakterből állhat.", MinimumLength = 3)]
+            [Display(Name = "Vezetéknév")]
+            public string LastName { get; set; }
+
+            //UserType
+            [Required]
+            [Display(Name = "Felhasználó típusa")]
+            public UserType UserType { get; set; }
+
+            //contactPhoneNumber
+            [Required]
+            [Display(Name = "Telefonszám")]
+            public string ContactPhoneNumber { get; set; }
+
         }
 
 
@@ -116,7 +151,7 @@ namespace EduSchool.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -132,57 +167,83 @@ namespace EduSchool.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
-                    #region emailhtml
-                    await _emailSender.SendEmailAsync(Input.Email, "Erősítsd meg az EduSchool regisztrációd",
-    $@"
-    <!DOCTYPE html>
-    <html lang='hu'>
-    <head>
-        <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                padding: 20px;
-            }}
-            .container {{
-                max-width: 600px;
-                margin: auto;
-                background: #fff;
-                padding: 20px;
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }}
-            h2 {{
-                color: #333;
-            }}
-            p {{
-                color: #666;
-            }}
-            .btn {{
-                display: inline-block;
-                background-color: #007bff;
-                color: #fff;
-                text-decoration: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-            }}
-        </style>
-    </head>
-    <body>
-        <div class='container'>
-            <h2>Erősítsd meg az EduSchool regisztrációd</h2>
-            <p>Kérlek erősítsd meg a fiókodat az alábbi linkre kattintva:</p>
-            <a href='{HtmlEncoder.Default.Encode(callbackUrl)}' class='btn'>FIÓK MEGERŐSÍTÉSE</a>
-        </div>
-    </body>
-    </html>
-    ");
-                    #endregion
+
+                    var userToCreate = new User
+                    {
+                        UserID = user.Id,
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        UserType = Input.UserType,
+                        ContactEmail = Input.Email,
+                        ContactPhoneNumber = Input.ContactPhoneNumber,
+                    };
+
+                    _context.Users.Add(userToCreate);
+                    await _context.SaveChangesAsync();
+
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
+                        #region emailhtml
+                        await _emailSender.SendEmailAsync(Input.Email, "Erősítsd meg az EduSchool regisztrációd",
+        $@"
+    <!DOCTYPE html>
+<html lang=""hu"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <style>
+        body {{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }}
+        .container {{
+            max-width: 600px;
+            margin: auto;
+            background: linear-gradient(135deg, #ff9e2c, #ff6b6b);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            text-align: center;
+        }}
+        h2 {{
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }}
+        p {{
+            font-size: 16px;
+            margin-bottom: 30px;
+        }}
+        .btn {{
+            display: inline-block;
+            background-color: #fff;
+            color: #ff6b6b;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }}
+        .btn:hover {{
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }}
+    </style>
+</head>
+<body>
+    <div class=""container"">
+        <h2>Erősítsd meg az EduSchool regisztrációd</h2>
+        <p>Kedves {Input.Username}! Üdvözlünk az EduSchool rendszerben! Kattints az alábbi gombra, hogy megerősítsd a regisztrációdat:</p>
+        <a href='{HtmlEncoder.Default.Encode(callbackUrl)}' class=""btn"">FIÓK MEGERŐSÍTÉSE</a>
+    </div>
+</body>
+</html>
+    ");
+                        #endregion
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
                     else
@@ -201,27 +262,27 @@ namespace EduSchool.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<IdentityUser> GetEmailStore()
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<IdentityUser>)_userStore;
+            return (IUserEmailStore<ApplicationUser>)_userStore;
         }
     }
 }

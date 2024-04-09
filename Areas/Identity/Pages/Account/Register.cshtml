@@ -1,43 +1,141 @@
 ﻿@page
 @model RegisterModel
 @{
-	ViewData["Title"] = "Regisztráció";
+    ViewData["Title"] = "Regisztráció";
+    ViewData["Language"] = "hu-HU";
 }
 
-<div class="container">
-	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<div class="card mt-5"> <div class="card-body"> <h1 class="card-title text-center mb-4">@ViewData["Title"]</h1> <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"> <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div> <div class="mb-3"> <label asp-for="Input.Email" class="form-label">Email</label> <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" /> <span asp-validation-for="Input.Email" class="text-danger"></span> </div> <div class="mb-3"> <label asp-for="Input.Password" class="form-label">Jelszó</label> <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Jelszó" /> <span asp-validation-for="Input.Password" class="text-danger"></span> </div> <div class="mb-3"> <label asp-for="Input.ConfirmPassword" class="form-label">Jelszó megerősítése</label> <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Jelszó megerősítése" /> <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span> </div> <button id="registerSubmit" type="submit" class="btn btn-primary btn-block">Regisztráció</button> </form> </div> </div> <div class="card mt-4">
-			</div>
-		</div>
-	</div>
-</div>
-@section Scripts {
-	<partial name="_ValidationScriptsPartial" />
-}
+<!DOCTYPE html>
+<html lang="@ViewData["Language"]" class="h-100">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Alkalmazásom</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+    <style>
+        html {
+            font-size: 14px;
+        }
 
-<style>
-	body {
-		background-color: #f8f9fa;
-	}
+        html {
+            position: relative;
+            min-height: 100%;
+        }
 
-	.card {
-		border: none;
-		box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-	}
+        body {
+            margin-bottom: 30px;
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+        }
 
-	.btn-primary {
-		background-color: #007bff;
-		border-color: #007bff;
-	}
+        a {
+            color: #0077b6;
+        }
 
-	.btn-outline-primary {
-		color: #007bff;
-		border-color: #007bff;
-	}
+        a:hover {
+            color: #005c8a;
+        }
 
-		.btn-outline-primary:hover {
-			background-color: #007bff;
-			color: #fff;
-		}
-</style>
+        .btn-primary {
+            background-color: #0077b6;
+            border-color: #0077b6;
+        }
+
+        .btn-primary:hover {
+            background-color: #005c8a;
+            border-color: #005c8a;
+        }
+
+        .form-control {
+            background-color: #2d2d2d;
+            border-color: #3c3c3c;
+            color: #f1f1f1;
+        }
+
+        .form-control:focus {
+            background-color: #3c3c3c;
+            border-color: #4c4c4c;
+            color: #f1f1f1;
+            box-shadow: 0 0 0 0.25rem rgba(0, 119, 182, 0.25);
+        }
+
+        .form-check-input {
+            background-color: #2d2d2d;
+            border-color: #3c3c3c;
+        }
+
+        .form-check-input:checked {
+            background-color: #0077b6;
+            border-color: #0077b6;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column h-100 bg-dark text-white">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card bg-dark text-white">
+                    <div class="card-header">
+                        <h1 class="card-title">@ViewData["Title"]</h1>
+                    </div>
+                    <div class="card-body">
+                        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.Email" class="form-control bg-dark text-white" autocomplete="username" aria-required="true" placeholder="név@példa.com" />
+                                <label asp-for="Input.Email" class="form-label text-white">Email</label>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.Password" class="form-control bg-dark text-white" autocomplete="new-password" aria-required="true" placeholder="Jelszó" />
+                                <label asp-for="Input.Password" class="form-label text-white">Jelszó</label>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.ConfirmPassword" class="form-control bg-dark text-white" autocomplete="new-password" aria-required="true" placeholder="Jelszó megerősítése" />
+                                <label asp-for="Input.ConfirmPassword" class="form-label text-white">Jelszó megerősítése</label>
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.Username" class="form-control bg-dark text-white" placeholder="Felhasználónév" />
+                                <label asp-for="Input.Username" class="form-label text-white">Felhasználónév</label>
+                                <span asp-validation-for="Input.Username" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.FirstName" class="form-control bg-dark text-white" placeholder="Keresztnév" />
+								<label asp-for="Input.FirstName" class="form-label text-white">Keresztnév</label>
+								<span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+								<input asp-for="Input.LastName" class="form-control bg-dark text-white" placeholder="Vezetéknév" />
+                                <label asp-for="Input.LastName" class="form-label text-white">Vezetéknév</label>
+                                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.ContactPhoneNumber" class="form-control bg-dark text-white" placeholder="Telefonszám" />
+								<label asp-for="Input.ContactPhoneNumber" class="form-label text-white">Telefonszám</label>
+								<span asp-validation-for="Input.ContactPhoneNumber" class="text-danger"></span>
+                            </div>
+
+                            <div class="d-grid gap-2 mb-3">
+                                <button id="registerSubmit" type="submit" class="btn btn-primary">Regisztráció</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+</body>
+</html>

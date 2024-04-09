@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jNTbfS4AV1dF9GedG9kV2nm/ySZ9tU3HkxchDP+HejXcPQ+HOttuR9KqFggMfgDG2ut8o3TiwzfoppNdeoYWrw==",
+  "dgSpecHash": "8gLmO6fzNNhZLouLwIAttp5AMp2iY5TvskcBIYiEY8NEGODLBiageY5XSDA3uze8Ih7nPbEnF2PtRfaITr0DIA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\EduSchool.csproj",
   "expectedPackageFiles": [
@@ -141,7 +141,7 @@
     "C:\\Users\\Kristof\\.nuget\\packages\\nuget.projectmodel\\6.9.1\\nuget.projectmodel.6.9.1.nupkg.sha512",
     "C:\\Users\\Kristof\\.nuget\\packages\\nuget.protocol\\6.9.1\\nuget.protocol.6.9.1.nupkg.sha512",
     "C:\\Users\\Kristof\\.nuget\\packages\\nuget.versioning\\6.9.1\\nuget.versioning.6.9.1.nupkg.sha512",
-    "C:\\Users\\Kristof\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\8.0.0\\pomelo.entityframeworkcore.mysql.8.0.0.nupkg.sha512",
+    "C:\\Users\\Kristof\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\8.0.1\\pomelo.entityframeworkcore.mysql.8.0.1.nupkg.sha512",
     "C:\\Users\\Kristof\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.6\\sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
     "C:\\Users\\Kristof\\.nuget\\packages\\sqlitepclraw.core\\2.1.6\\sqlitepclraw.core.2.1.6.nupkg.sha512",
     "C:\\Users\\Kristof\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.6\\sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
