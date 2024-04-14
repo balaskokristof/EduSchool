@@ -75,13 +75,16 @@ namespace EduSchool.Areas.Identity.Pages.Account
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
+        /// 
+        [BindProperty]
+        public string SelectedRole { get; set; }
         public class InputModel
         {
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required(ErrorMessage = "Az email cím megadása kötelező.")]
+            [Required(ErrorMessage = "Kötelező az email kitöltése!")]
             [EmailAddress(ErrorMessage = "Az email cím formátuma nem megfelelő.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -90,7 +93,7 @@ namespace EduSchool.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required(ErrorMessage = "A jelszó megadása kötelező.")]
+            [Required(ErrorMessage = "Kötelező a jelszó kitöltése!")]
             [StringLength(100, ErrorMessage = "A(z) {0} legalább {2}, legfeljebb pedig {1} karakter hosszú kell legyen.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Jelszó")]
@@ -101,38 +104,40 @@ namespace EduSchool.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [DataType(DataType.Password)]
-            [Display(Name = "Jelszó megerősítése")]
-            [Compare("Password", ErrorMessage = "A két jelszó nem egyezik.")]
-            public string ConfirmPassword { get; set; }
-
-            //Username
-            [Required]
+            // Felhasználónév
+            [Required(ErrorMessage = "Kötelező a felhasználónév kitöltése!")]
             [StringLength(100, ErrorMessage = "A {0} legalább {2} és legfeljebb {1} karakterből állhat.", MinimumLength = 3)]
-            [Display(Name = "Username")]
+            [Display(Name = "Felhasználónév")]
             public string Username { get; set; }
 
-            //FirstName
-            [Required]
+            // Keresztnév
+            [Required(ErrorMessage = "Kötelező a keresztnév kitöltése!")]
             [StringLength(100, ErrorMessage = "A {0} legalább {2} és legfeljebb {1} karakterből állhat.", MinimumLength = 3)]
             [Display(Name = "Keresztnév")]
             public string FirstName { get; set; }
 
-            //LastName
-            [Required]
+            // Vezetéknév
+            [Required(ErrorMessage = "Kötelező a vezetéknév kitöltése!")]
             [StringLength(100, ErrorMessage = "A {0} legalább {2} és legfeljebb {1} karakterből állhat.", MinimumLength = 3)]
             [Display(Name = "Vezetéknév")]
             public string LastName { get; set; }
 
-            //UserType
-            [Required]
+            // Felhasználó típusa
+            [Required(ErrorMessage = "Kötelező a felhasználó típusának megadása!")]
             [Display(Name = "Felhasználó típusa")]
             public UserType UserType { get; set; }
 
-            //contactPhoneNumber
-            [Required]
+            // Telefonszám
+            [Required(ErrorMessage = "Kötelező a telefonszám kitöltése!")]
             [Display(Name = "Telefonszám")]
             public string ContactPhoneNumber { get; set; }
+
+            // Jelszó megerősítése
+            [Required(ErrorMessage = "Kötelező a jelszó megerősítése!")]
+            [DataType(DataType.Password)]
+            [Display(Name = "Jelszó megerősítése")]
+            [Compare("Password", ErrorMessage = "A két jelszó nem egyezik.")]
+            public string ConfirmPassword { get; set; }
 
         }
 
@@ -157,7 +162,8 @@ namespace EduSchool.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    await _userManager.AddToRoleAsync(user, SelectedRole);
+                    _logger.LogInformation("Felhasználó sikeresen létrehozva!");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -174,7 +180,6 @@ namespace EduSchool.Areas.Identity.Pages.Account
                         FirstName = Input.FirstName,
                         LastName = Input.LastName,
                         UserType = Input.UserType,
-                        ContactEmail = Input.Email,
                         ContactPhoneNumber = Input.ContactPhoneNumber,
                     };
 
@@ -236,8 +241,8 @@ namespace EduSchool.Areas.Identity.Pages.Account
 </head>
 <body>
     <div class=""container"">
-        <h2>Erősítsd meg az EduSchool regisztrációd</h2>
-        <p>Kedves {Input.Username}! Üdvözlünk az EduSchool rendszerben! Kattints az alábbi gombra, hogy megerősítsd a regisztrációdat:</p>
+        <h2>Erősítse meg az EduSchool regisztrációját</h2>
+        <p>Kedves {Input.Username}! Üdvözöljük az EduSchool rendszerben! Kattintson az alábbi gombra, hogy megerősítse a regisztrációját:</p>
         <a href='{HtmlEncoder.Default.Encode(callbackUrl)}' class=""btn"">FIÓK MEGERŐSÍTÉSE</a>
     </div>
 </body>
@@ -280,7 +285,7 @@ namespace EduSchool.Areas.Identity.Pages.Account
         {
             if (!_userManager.SupportsUserEmail)
             {
-                throw new NotSupportedException("The default UI requires a user store with email support.");
+                throw new NotSupportedException("Ez mi?");
             }
             return (IUserEmailStore<ApplicationUser>)_userStore;
         }

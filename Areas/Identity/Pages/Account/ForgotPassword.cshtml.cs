@@ -126,7 +126,7 @@ $@"
 <body>
     <div class=""container"">
         <h2>Elfelejtett EduSchool jelszó visszaállítása</h2>
-        <p>Nincs miért aggódnod! Kattints az alábbi gombra, és egyszerűen visszaállíthatod a jelszavad:</p>
+        <p>Nincs miért aggódnia! Kattintson az alábbi gombra, és egyszerűen visszaállíthatja a jelszavát:</p>
         <a href=""{HtmlEncoder.Default.Encode(callbackUrl)}"" class=""btn"">JELSZÓ VISSZAÁLLÍTÁSA</a>
     </div>
 </body>

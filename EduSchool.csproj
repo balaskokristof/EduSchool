@@ -27,4 +27,8 @@
     <Folder Include="Migrations\Edu\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\identity.css" />
+  </ItemGroup>
+
 </Project>

@@ -12,7 +12,6 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public UserType UserType { get; set; }
-        public string ContactEmail { get; set; }
         public string ContactPhoneNumber { get; set; }
         public List<Course> CoursesTaught { get; set; }
         public List<Enrollment> Enrollments { get; set; }

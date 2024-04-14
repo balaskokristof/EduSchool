@@ -8,6 +8,22 @@
     "Children": {
       "css": {
         "Children": {
+          "identity.css": {
+            "Children": null,
+            "Asset": {
+              "ContentRootIndex": 0,
+              "SubPath": "css/identity.css"
+            },
+            "Patterns": null
+          },
+          "reglogin.css": {
+            "Children": null,
+            "Asset": {
+              "ContentRootIndex": 0,
+              "SubPath": "css/reglogin.css"
+            },
+            "Patterns": null
+          },
           "site.css": {
             "Children": null,
             "Asset": {

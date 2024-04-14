@@ -1,0 +1,59 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Profilom";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+<head>
+    <link href="~/css/identity.css" rel="stylesheet" />
+</head>
+
+
+
+<h3>@ViewData["Title"]</h3>
+
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Username" class="form-control" placeholder="Az jelenlegi felhasználóneved: " disabled />
+                <label asp-for="Username" class="form-label">Fehasználónév</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.NewUsername" class="form-control" placeholder="Az új felhasználóneved: " />
+                <label asp-for="Input.NewUsername" class="form-label">Új felhasználónév</label>
+                <span asp-validation-for="Input.NewUsername" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Keresztnev" class="form-control" placeholder="Keresztnév: " disabled />
+                <label asp-for="Keresztnev" class="form-label">Vezetéknév</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Vezeteknev" class="form-control" placeholder="Vezetéknév:  " disabled />
+                <label asp-for="Vezeteknev" class="form-label">Keresztnév</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Telefonszam" class="form-control" placeholder="Telefonszám: " disabled />
+                <label asp-for="Telefonszam" class="form-label">Telefonszám</label>
+            </div>
+           
+
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Mentés</button>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

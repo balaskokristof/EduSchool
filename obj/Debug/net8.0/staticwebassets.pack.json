@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\EduSchool.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\identity.css",
+      "PackagePath": "staticwebassets\\css\\identity.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\reglogin.css",
+      "PackagePath": "staticwebassets\\css\\reglogin.css"
+    },
+    {
       "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

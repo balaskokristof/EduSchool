@@ -11,8 +11,6 @@ namespace EduSchool.Models.DataModel
         public DateTime EndDate { get; set; }
         public string Category { get; set; }
         public string InstructorID { get; set; }
-        public string RelatedCourses { get; set; } // Szükséges más kurzus hogy eljkezdj egy újat?
-
         public User Instructor { get; set; }
         public List<Enrollment> Enrollments { get; set; }
         public List<Grade> Grades { get; set; }
