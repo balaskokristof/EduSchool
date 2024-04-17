@@ -28,7 +28,11 @@ namespace EduSchool.Controllers
         {
             var loggedinUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loggedinuser = await _context.Users.FindAsync(loggedinUser);
-            if (ModelState.IsValid)
+            if (model.StartDate > model.EndDate)
+            {
+                ModelState.AddModelError("EndDate", "A befejezési dátum nem lehet korábbi a kezdési dátumnál.");
+            }
+            else
             {
                 var course = new Models.DataModel.Course
                 {
@@ -42,10 +46,9 @@ namespace EduSchool.Controllers
 
                 _context.Courses.Add(course);
                 await _context.SaveChangesAsync();
-                Console.WriteLine("Course created");
                 return RedirectToAction(nameof(Index));
             }
-            else Console.WriteLine("Model is not valid");
+            
             return View(model);
         }
         public async Task<IActionResult> Index()

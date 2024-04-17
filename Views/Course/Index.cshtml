@@ -4,9 +4,68 @@
     ViewData["Title"] = "Új kurzus hozzáadása";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<head>
-    <link href="~/css/addcourse.css" rel="stylesheet" />
-</head>
+<style>
+    body {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+        font-size: 16px;
+    }
+
+    h4 {
+        text-align: center;
+        color: #f1f1f1;
+        margin-bottom: 20px;
+    }
+
+    .form-container {
+        margin: 0 auto;
+        max-width: 500px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        color: #f1f1f1;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        background-color: #2d2d2d;
+        border: 1px solid #3c3c3c;
+        color: #f1f1f1;
+        padding: 10px;
+        width: 100%;
+    }
+
+    input[type="submit"] {
+        background-color: #0077b6;
+        border: none;
+        color: #f1f1f1;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #005c8a;
+        }
+
+    a {
+        color: #f1f1f1;
+        text-decoration: none;
+    }
+
+        a:hover {
+            color: #b4b4b4;
+        }
+
+    .text-danger {
+        color: #ff4646;
+    }
+
+</style>
+
 
 <h4>Új kurzus létrehozása</h4>
 <hr />
@@ -52,9 +111,11 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Vissza a listához</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
