@@ -4,7 +4,11 @@ using EduSchool.Models.Context;
 using EduSchool.Models.DataModel;
 using EduSchool.Models.Email;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Globalization;
 
 namespace EduSchool
 {
@@ -72,8 +76,6 @@ namespace EduSchool
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
 
-            
-
             builder.Services.AddTransient<IEmailSender, EmailSender>();
 
             var app = builder.Build();
@@ -103,6 +105,7 @@ namespace EduSchool
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

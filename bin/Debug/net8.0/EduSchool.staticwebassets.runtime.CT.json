@@ -8,6 +8,14 @@
     "Children": {
       "css": {
         "Children": {
+          "addcourse.css": {
+            "Children": null,
+            "Asset": {
+              "ContentRootIndex": 0,
+              "SubPath": "css/addcourse.css"
+            },
+            "Patterns": null
+          },
           "identity.css": {
             "Children": null,
             "Asset": {

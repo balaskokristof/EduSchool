@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\EduSchool.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\addcourse.css",
+      "PackagePath": "staticwebassets\\css\\addcourse.css"
+    },
+    {
       "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\identity.css",
       "PackagePath": "staticwebassets\\css\\identity.css"
     },

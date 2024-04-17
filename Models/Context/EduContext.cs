@@ -5,6 +5,10 @@
 
     public class EduContext : DbContext
     {
+        public EduContext()
+        {
+        }
+
         public EduContext(DbContextOptions<EduContext> options) : base(options)
         {
             //teszteléshez...
