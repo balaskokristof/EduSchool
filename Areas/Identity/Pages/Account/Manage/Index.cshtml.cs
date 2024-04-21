@@ -82,8 +82,8 @@ namespace EduSchool.Areas.Identity.Pages.Account.Manage
 
             if(Felhasznalo != null)
             {
-                Keresztnev = Felhasznalo.FirstName;
-                Vezeteknev = Felhasznalo.LastName;
+                Keresztnev = Felhasznalo.LastName;
+                Vezeteknev = Felhasznalo.FirstName;
                 Telefonszam = Felhasznalo.ContactPhoneNumber;
             }
 

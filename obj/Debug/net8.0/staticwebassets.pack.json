@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\startpage.css",
+      "PackagePath": "staticwebassets\\css\\startpage.css"
+    },
+    {
       "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
@@ -255,6 +259,14 @@
     {
       "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\pic\\eduschool.png",
+      "PackagePath": "staticwebassets\\pic\\eduschool.png"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\pic\\undraw_login_re_4vu2.svg",
+      "PackagePath": "staticwebassets\\pic\\undraw_login_re_4vu2.svg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EduSchool.Microsoft.AspNetCore.StaticWebAssets.props",

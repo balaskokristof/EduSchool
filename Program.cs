@@ -23,7 +23,6 @@ namespace EduSchool
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-
             builder.Services.AddDbContext<EduContext>(options =>
                            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 

@@ -11,6 +11,7 @@ namespace EduSchool.Models.DataModel
         public DateTime EndDate { get; set; }
         public string Category { get; set; }
         public string InstructorID { get; set; }
+        public string InstructorName { get; set; }
         public User Instructor { get; set; }
         public List<Enrollment> Enrollments { get; set; }
         public List<Grade> Grades { get; set; }

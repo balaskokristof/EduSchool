@@ -1,7 +1,7 @@
 {
   "ContentRoots": [
     "/app/wwwroot/",
-    "/.nuget/fallbackpackages2/microsoft.aspnetcore.identity.ui/8.0.3/staticwebassets/V5/",
+    "/.nuget/fallbackpackages2/microsoft.aspnetcore.identity.ui/8.0.4/staticwebassets/V5/",
     "/app/obj/Debug/net8.0/scopedcss/bundle/"
   ],
   "Root": {
@@ -37,6 +37,14 @@
             "Asset": {
               "ContentRootIndex": 0,
               "SubPath": "css/site.css"
+            },
+            "Patterns": null
+          },
+          "startpage.css": {
+            "Children": null,
+            "Asset": {
+              "ContentRootIndex": 0,
+              "SubPath": "css/startpage.css"
             },
             "Patterns": null
           }
@@ -576,6 +584,28 @@
               }
             },
             "Asset": null,
+            "Patterns": null
+          }
+        },
+        "Asset": null,
+        "Patterns": null
+      },
+      "pic": {
+        "Children": {
+          "eduschool.png": {
+            "Children": null,
+            "Asset": {
+              "ContentRootIndex": 0,
+              "SubPath": "pic/eduschool.png"
+            },
+            "Patterns": null
+          },
+          "undraw_login_re_4vu2.svg": {
+            "Children": null,
+            "Asset": {
+              "ContentRootIndex": 0,
+              "SubPath": "pic/undraw_login_re_4vu2.svg"
+            },
             "Patterns": null
           }
         },

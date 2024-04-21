@@ -1,0 +1,25 @@
+﻿@model EduSchool.ViewModels.CourseEnrollViewModel
+
+@{
+    ViewData["Title"] = "Kurzusra jelentkezés";
+}
+
+@Html.ValidationSummary()
+
+<head>
+	<link href="~/css/addcourse.css" rel="stylesheet" />
+</head>
+
+<h2>Kurzusra jelentkezés</h2>
+
+<form asp-action="Enroll" method="post">
+    <div class="form-group">
+        <label asp-for="CourseId">A felvenni kívánt kurzus azonosítószáma:</label>
+        <br />
+        <input type="number" class="form-control" id="CourseId" name="courseId" required>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Jelentkezés</button>
+</form>
+
+

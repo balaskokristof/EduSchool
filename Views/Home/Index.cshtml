@@ -1,7 +1,104 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@page
+@using EduSchool.Models.Context
+@using EduSchool.Models.DataModel
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@model IEnumerable<Course>
+
+@inject UserManager<ApplicationUser> UserManager
+@inject EduContext Context
+@{
+    List<Course> courses = null;
+    if (User.Identity.IsAuthenticated)
+    {
+        var user = await UserManager.GetUserAsync(User);
+
+        var isStudent = await UserManager.IsInRoleAsync(user, "Student");
+        var isTeacher = await UserManager.IsInRoleAsync(user, "Teacher");
+
+        if (isStudent)
+        {
+            var studentId = user.Id;
+
+            var enrolledCourses = await Context.Enrollments
+                                                .Where(e => e.StudentID == studentId)
+                                                .Select(e => e.CourseID)
+                                                .ToListAsync();
+            courses = await Context.Courses
+                                    .Where(c => enrolledCourses.Contains(c.CourseID))
+                                    .ToListAsync();
+        }
+        if (isTeacher)
+        {
+            var teacherId = user.Id;
+
+            courses = await Context.Courses
+                                    .Where(c => c.InstructorID == teacherId)
+                                    .ToListAsync();
+        }
+    }
 }
 
-<div class="text-center">
-   <h1 class="display-4">Üdvözöllek az EduSchool záródolgozatom kezdőoldalán!</h1>
-</div>
+@if (User.Identity.IsAuthenticated)
+{
+    var user = await UserManager.GetUserAsync(User);
+    @if (courses != null && courses.Any())
+    {
+        <head>
+            <link rel="stylesheet" href="~/css/startpage.css" />
+        </head>
+
+        <h2>Kurzusok</h2>
+
+        <div class="row">
+            @foreach (var kurzus in courses)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@kurzus.Name</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Kategória: @kurzus.Category</h6>
+                            <p class="card-text">@kurzus.Description</p>
+                            <p class="card-text">Kezdés dátuma: @kurzus.StartDate.ToLongDateString()</p>
+                            <p class="card-text">Befejezés dátuma: @kurzus.EndDate.ToLongDateString()</p>
+                            <p class="card-text">Oktató neve: @kurzus.InstructorName</p>
+                            <p class="card-text">A kurzus azonosítószáma: <b>@kurzus.CourseID</b></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            @if (await UserManager.IsInRoleAsync(user, "Teacher"))
+            {
+                <h2 class="display-4">Még nem hozott létre kurzust!</h2>
+                <p class="lead">Kattintson a menüben a "Új kurzus létrehozása" gombra!</p>
+            }
+            else if (await UserManager.IsInRoleAsync(user, "Student"))
+            {
+                <h2 class="display-4">Még nem tagja egyetlen kurzusnak sem</h2>
+                <p class="lead">Vegyen fel egy kurzust a menüben a "Kurzus felvétele" gombra kattintva!</p>
+            }
+        </div>
+    }
+}
+else
+{
+    <div class="text-center">
+        <h2 class="display-4">Üdvözlöm az EduSchool záródolgozatom kezdőoldalán!</h2>
+        <p class="lead">Az oldal használatához regisztráljon vagy jelentkezzen be!</p>
+        <img src="~/pic/undraw_login_re_4vu2.svg" alt="login" class="img-fluid" style="max-width: 50%; height: auto;">
+    </div>
+}
+
+<style>
+    body {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+    }
+</style>
+
+

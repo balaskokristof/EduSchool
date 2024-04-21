@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 using EduSchool.Models.Email;
 using EduSchool.Models.DataModel;
 using EduSchool.Models.Context;
+using Microsoft.Identity.Client;
 
 namespace EduSchool.Areas.Identity.Pages.Account
 {
@@ -150,6 +151,16 @@ namespace EduSchool.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            int userType = 0;
+            if(SelectedRole == "Teacher")
+            {
+                userType = 0;
+            }
+            if(SelectedRole == "Student")
+            {
+                userType = 1;
+            }
+
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -179,7 +190,7 @@ namespace EduSchool.Areas.Identity.Pages.Account
                         UserID = user.Id,
                         FirstName = Input.FirstName,
                         LastName = Input.LastName,
-                        UserType = Input.UserType,
+                        UserType = (UserType)userType,
                         ContactPhoneNumber = Input.ContactPhoneNumber,
                     };
 

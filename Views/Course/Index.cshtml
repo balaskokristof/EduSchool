@@ -2,73 +2,17 @@
 
 @{
     ViewData["Title"] = "Új kurzus hozzáadása";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    body {
-        background-color: #1e1e1e;
-        color: #f1f1f1;
-        font-size: 16px;
-    }
 
-    h4 {
-        text-align: center;
-        color: #f1f1f1;
-        margin-bottom: 20px;
-    }
 
-    .form-container {
-        margin: 0 auto;
-        max-width: 500px;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    label {
-        color: #f1f1f1;
-    }
-
-    input[type="text"],
-    input[type="date"] {
-        background-color: #2d2d2d;
-        border: 1px solid #3c3c3c;
-        color: #f1f1f1;
-        padding: 10px;
-        width: 100%;
-    }
-
-    input[type="submit"] {
-        background-color: #0077b6;
-        border: none;
-        color: #f1f1f1;
-        padding: 10px 20px;
-        cursor: pointer;
-    }
-
-        input[type="submit"]:hover {
-            background-color: #005c8a;
-        }
-
-    a {
-        color: #f1f1f1;
-        text-decoration: none;
-    }
-
-        a:hover {
-            color: #b4b4b4;
-        }
-
-    .text-danger {
-        color: #ff4646;
-    }
-
-</style>
-
+@Html.ValidationSummary()
+<head>
+	<link href="~/css/addcourse.css" rel="stylesheet" />
+</head>
 
 <h4>Új kurzus létrehozása</h4>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" method="post">
@@ -85,12 +29,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label">Kezdési dátum:</label>
-                <input type="date" asp-for="StartDate" class="form-control" />
+                <input type="date" asp-for="StartDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EndDate" class="control-label">Befejezési dátum:</label>
-                <input type="date" asp-for="EndDate" class="form-control" />
+                <input type="date" asp-for="EndDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -100,22 +44,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="InstructorID" class="control-label">Oktató neve:</label>
-                <input asp-for="InstructorID" class="form-control" readonly value="@ViewBag.InstructorName" />
+                <input asp-for="InstructorID" class="form-control" readonly value="@ViewBag.InstructorName"/>
                 <span asp-validation-for="InstructorID" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Létrehozás" class="btn btn-primary" />
             </div>
+           
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Vissza a listához</a>
+    <a asp-controller="Home" asp-action="Index">Vissza a listához</a>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
