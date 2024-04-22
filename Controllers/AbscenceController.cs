@@ -2,7 +2,7 @@
 
 namespace EduSchool.Controllers
 {
-    public class KurzusFelveszController : Controller
+    public class AbscenceController : Controller
     {
         public IActionResult Index()
         {

@@ -1,0 +1,72 @@
+﻿@model GradeCreateViewModel
+
+<h2>Érdemjegy rögzítése</h2>
+
+<form asp-action="Create" asp-controller="Grade" method="post">
+    <div class="form-group">
+        <input type="hidden" name="courseId" value="@Model.CourseID" />
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tanuló neve</th>
+                <th>Jegy értéke</th>
+                <th>Jegy súlya</th>
+                <th>Megjegyzés</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Students.Count; i++)
+            {
+                var student = Model.Students[i];
+                <tr>
+                    <td>@student.StudentName</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Grade Value">
+                            @for (int j = 1; j <= 5; j++)
+                            {
+                                <button type="button" class="btn btn-secondary grade-btn @(j == 1 ? "active" : "")"
+                                        value="@j" name="students[@i].SelectedGradeValue">
+                                    @j
+                                </button>
+                            }
+                        </div>
+                        <input type="hidden" class="grade-value-input" name="students[@i].SelectedGradeValue" value="@student.SelectedGradeValue" />
+                    </td>
+                    <td>
+                        <select class="form-control" name="students[@i].Weight">
+                            <option value="100">100%</option>
+                            <option value="200">200%</option>
+                            <option value="300">300%</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="form-control" name="students[@i].Comment" /></td>
+                    
+                </tr>
+            <input type="hidden" name="students[@i].StudentID" value="@student.StudentID" hidden />
+            }
+        </tbody>
+
+    </table>
+
+    <button type="submit" class="btn btn-primary">Mentés</button>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.grade-btn').click(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                    $(this).closest('tr').find('.grade-value-input').val('');
+                } else {
+                    $(this).closest('tr').find('.grade-btn').removeClass('active');
+                    $(this).addClass('active');
+                    $(this).closest('tr').find('.grade-value-input').val($(this).val());
+                }
+            });
+            $('.grade-btn').removeClass('active');
+        });
+    </script>
+}

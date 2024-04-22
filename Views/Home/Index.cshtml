@@ -63,6 +63,7 @@
                             <p class="card-text">Befejezés dátuma: @kurzus.EndDate.ToLongDateString()</p>
                             <p class="card-text">Oktató neve: @kurzus.InstructorName</p>
                             <p class="card-text">A kurzus azonosítószáma: <b>@kurzus.CourseID</b></p>
+                            <a href="@Url.Action("Index", "CourseDetails", new { courseID = kurzus.CourseID })" class="card-link">Részletek</a>
                         </div>
                     </div>
                 </div>

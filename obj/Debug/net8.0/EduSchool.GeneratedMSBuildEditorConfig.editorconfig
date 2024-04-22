@@ -106,12 +106,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Abscence/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzY2VuY2VcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Abscence/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzY2VuY2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/CourseDetails/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlRGV0YWlsc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Course/CourseEnroll.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXENvdXJzZUVucm9sbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Course/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Grade/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Grade/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Home/Index.cshtml]

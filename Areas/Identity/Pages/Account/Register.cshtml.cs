@@ -201,7 +201,7 @@ namespace EduSchool.Areas.Identity.Pages.Account
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         #region emailhtml
-                        await _emailSender.SendEmailAsync(Input.Email, "Erősítsd meg az EduSchool regisztrációd",
+                        await _emailSender.SendEmailAsync(Input.Email, "Erősítse meg az EduSchool regisztrációját",
         $@"
     <!DOCTYPE html>
 <html lang=""hu"">

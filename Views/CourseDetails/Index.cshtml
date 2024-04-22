@@ -1,0 +1,102 @@
+﻿@model EduSchool.Models.DataModel.Course
+@using Microsoft.AspNetCore.Identity
+
+@{
+    ViewData["Title"] = "Kurzus részletei";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navigacio {
+        background-color: #0077b6;
+        overflow: hidden;
+    }
+
+        .navigacio a {
+            float: left;
+            display: block;
+            color: #f1f1f1;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+            .navigacio a:hover {
+                background-color: #005c8a;
+            }
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #f1f1f1;
+        margin-bottom: 20px;
+    }
+
+    .details {
+        background-color: #2d2d2d;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+        .details p {
+            margin-bottom: 10px;
+        }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+        .back-link a {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+
+            .back-link a:hover {
+                color: #b4b4b4;
+            }
+</style>
+
+<div class="navbar navigacio">
+    @if (User.IsInRole("Teacher"))
+    {
+        <a href="@Url.Action("Create", "Grade", new { courseId = Model.CourseID })" class="card-link">Jegy rögzítése</a>
+        <a asp-controller="Abscence" asp-action="Create">Mulasztás rögzítése</a>
+    }
+    else if (User.IsInRole("Student"))
+    {
+        <a asp-controller="Grade" asp-action="Index">Érdemjegyek</a>
+        <a asp-controller="Abscence" asp-action="Index">Mulasztások</a>
+    }
+</div>
+
+<div class="container">
+    <h2>@Model.Name</h2>
+
+    <div class="details">
+        <p><strong>Kategória:</strong> @Model.Category</p>
+        <p><strong>Leírás:</strong> @Model.Description</p>
+        <p><strong>Kezdés dátuma:</strong> @Model.StartDate.ToShortDateString()</p>
+        <p><strong>Befejezés dátuma:</strong> @Model.EndDate.ToShortDateString()</p>
+        <p><strong>Oktató neve:</strong> @Model.InstructorName</p>
+    </div>
+    <h3>Kurzus bejegyzések placeholder</h3>
+
+    <div class="back-link">
+        <a asp-controller="Home" asp-action="Index">Vissza a listához</a>
+    </div>
+</div>
