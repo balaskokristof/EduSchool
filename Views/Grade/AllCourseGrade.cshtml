@@ -1,0 +1,36 @@
+﻿@model List<EduSchool.ViewModels.AllCourseGradesViewModel1>
+
+@foreach (var item in Model)
+{
+    <h2>@item.CourseName</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tanuló neve</th>
+                <th>Jegyei</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in item.Students)
+            {
+                <tr>
+                    <td>@student.StudentName</td>
+                    <td class="grade-cell">
+                        @foreach (var grade in student.Grades)
+                        {
+                            <span class="grade-item" data-toggle="tooltip" data-placement="top" title="Jegy értéke: @grade.GradeValue, Téma: @grade.GradeTitle, Súly: @grade.Weight%, Megjegyzés: @grade.Comment, Rögzítés dátuma: @grade.GradeDate.ToString("yyyy-MM-dd")">@grade.GradeValue</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

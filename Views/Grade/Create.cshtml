@@ -7,6 +7,20 @@
         <input type="hidden" name="courseId" value="@Model.CourseID" />
     </div>
 
+    <div class="form-group">
+        <label for="globalWeight">Globális súlyozás:</label>
+        <select class="form-control" id="globalWeight">
+            <option value="100">100%</option>
+            <option value="200">200%</option>
+            <option value="300">300%</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="gradeTitle">Értékelés témája:</label>
+        <input type="text" class="form-control" id="gradeTitle" name="gradeTitle" />
+    </div>
+
     <table class="table">
         <thead>
             <tr>
@@ -35,16 +49,16 @@
                         <input type="hidden" class="grade-value-input" name="students[@i].SelectedGradeValue" value="@student.SelectedGradeValue" />
                     </td>
                     <td>
-                        <select class="form-control" name="students[@i].Weight">
+                        <select class="form-control weight-select" name="students[@i].Weight">
                             <option value="100">100%</option>
                             <option value="200">200%</option>
                             <option value="300">300%</option>
                         </select>
                     </td>
                     <td><input type="text" class="form-control" name="students[@i].Comment" /></td>
-                    
+
                 </tr>
-            <input type="hidden" name="students[@i].StudentID" value="@student.StudentID" hidden />
+                <input type="hidden" name="students[@i].StudentID" value="@student.StudentID" hidden />
             }
         </tbody>
 
@@ -66,7 +80,13 @@
                     $(this).closest('tr').find('.grade-value-input').val($(this).val());
                 }
             });
-            $('.grade-btn').removeClass('active');
+
+            $('.weight-select').val('100');
+
+            $('#globalWeight').change(function () {
+                var weight = $(this).val();
+                $('.weight-select').val(weight);
+            });
         });
     </script>
 }

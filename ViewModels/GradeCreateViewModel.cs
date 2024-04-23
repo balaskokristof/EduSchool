@@ -2,6 +2,7 @@
 {
     public int CourseID { get; set; }
     public List<StudentGradeViewModel> Students { get; set; }
+    public string GradeTitle { get; set; }
 }
 
 public class StudentGradeViewModel

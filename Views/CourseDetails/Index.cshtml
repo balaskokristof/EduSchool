@@ -75,11 +75,13 @@
     @if (User.IsInRole("Teacher"))
     {
         <a href="@Url.Action("Create", "Grade", new { courseId = Model.CourseID })" class="card-link">Jegy rögzítése</a>
-        <a asp-controller="Abscence" asp-action="Create">Mulasztás rögzítése</a>
+        <a href="@Url.Action("RecordAbsence", "Absence", new { courseId = Model.CourseID })" class="card-link">Mulasztás rögzítése</a>
+        <a href="@Url.Action("AllCourseGrade", "Grade", new { courseId = Model.CourseID })" class="card-link">Kurzus jegyei</a>
+
     }
     else if (User.IsInRole("Student"))
     {
-        <a asp-controller="Grade" asp-action="Index">Érdemjegyek</a>
+        <a href="@Url.Action("StudentGrade", "Grade", new { courseId = Model.CourseID })" class="card-link">Érdemjegyeim</a>
         <a asp-controller="Abscence" asp-action="Index">Mulasztások</a>
     }
 </div>

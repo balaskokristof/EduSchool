@@ -106,12 +106,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Abscence/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzY2VuY2VcQ3JlYXRlLmNzaHRtbA==
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Absence/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Abscence/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzY2VuY2VcSW5kZXguY3NodG1s
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Absence/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Absence/RecordAbsence.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxSZWNvcmRBYnNlbmNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/CourseDetails/Index.cshtml]
@@ -126,12 +130,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Grade/AllCourseGrade.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcQWxsQ291cnNlR3JhZGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Grade/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Grade/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcSW5kZXguY3NodG1s
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Grade/StudentGrade.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcU3R1ZGVudEdyYWRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Home/Index.cshtml]

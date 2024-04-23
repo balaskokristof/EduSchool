@@ -4,6 +4,7 @@ using EduSchool.Models.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduSchool.Migrations.Edu
 {
     [DbContext(typeof(EduContext))]
-    partial class EduContextModelSnapshot : ModelSnapshot
+    [Migration("20240423162650_GradeTitle")]
+    partial class GradeTitle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +36,9 @@ namespace EduSchool.Migrations.Edu
                     b.Property<int>("AbsenceTypeID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("AbsenceTypeID1")
+                        .HasColumnType("int");
+
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
 
@@ -46,6 +52,8 @@ namespace EduSchool.Migrations.Edu
                     b.HasKey("AbsenceID");
 
                     b.HasIndex("AbsenceTypeID");
+
+                    b.HasIndex("AbsenceTypeID1");
 
                     b.HasIndex("CourseID");
 
@@ -201,6 +209,10 @@ namespace EduSchool.Migrations.Edu
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EduSchool.Models.DataModel.AbsenceType", null)
+                        .WithMany("Absences")
+                        .HasForeignKey("AbsenceTypeID1");
+
                     b.HasOne("EduSchool.Models.DataModel.Course", "Course")
                         .WithMany("Absences")
                         .HasForeignKey("CourseID")
@@ -267,6 +279,11 @@ namespace EduSchool.Migrations.Edu
                     b.Navigation("Course");
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("EduSchool.Models.DataModel.AbsenceType", b =>
+                {
+                    b.Navigation("Absences");
                 });
 
             modelBuilder.Entity("EduSchool.Models.DataModel.Course", b =>

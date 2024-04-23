@@ -1,0 +1,30 @@
+﻿@model EduSchool.ViewModels.StudentGradeViewModel1
+
+<h2>Érdemjegyeim</h2>
+
+@if (Model.Grades.Count == 0)
+{
+    <p>Nincsenek jegyei ehhez a kurzushoz.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Jegyek</th>
+                <th>Dátum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var grade in Model.Grades)
+            {
+                <tr>
+                    <td>
+                        <a href="#" data-toggle="tooltip" title="Érték: @grade.GradeValue, Cím: @grade.GradeTitle, Súly: @grade.Weight%, Megjegyzés: @grade.Comment">@grade.GradeValue</a>
+                    </td>
+                    <td>@grade.GradeDate.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
