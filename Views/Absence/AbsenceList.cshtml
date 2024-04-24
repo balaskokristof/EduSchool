@@ -1,0 +1,82 @@
+﻿@model EduSchool.ViewModels.AbsenceListViewModel
+
+<h2>Mulasztások listája</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tanuló</th>
+            <th>Kezdő dátum</th>
+            <th>Befejező dátum</th>
+            <th>Mulasztás típusa</th>
+            <th>Szerkesztés</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var absence in Model.Absences)
+        {
+            <tr>
+                <td>@absence.Student.LastName @absence.Student.FirstName</td>
+                <td>@absence.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@absence.EndDate.ToString("yyyy-MM-dd")</td>
+                <td>@absence.AbsenceType.TypeName</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" onclick="showEditModal('@absence.AbsenceID', '@absence.StudentID', '@absence.CourseID', '@absence.StartDate.ToString("yyyy-MM-dd")', '@absence.EndDate.ToString("yyyy-MM-dd")', '@absence.AbsenceType.AbsenceTypeID')">Szerkesztés</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="editAbsenceModal" tabindex="-1" aria-labelledby="editAbsenceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAbsenceModalLabel">Mulasztás szerkesztése</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="editAbsenceContent">
+                <form id="editAbsenceForm" asp-action="Edit" method="post">
+                    <input type="hidden" id="editAbsenceId" name="AbsenceID" />
+                    <input type="hidden" id="editStudentId" name="StudentID" />
+                    <input type="hidden" id="editCourseId" name="CourseID" />
+                    <div class="form-group">
+                        <label for="StartDate">Kezdő dátum:</label>
+                        <input id="editStartDate" name="StartDate" class="form-control" type="date" />
+                    </div>
+                    <div class="form-group">
+                        <label for="EndDate">Befejező dátum:</label>
+                        <input id="editEndDate" name="EndDate" class="form-control" type="date" />
+                    </div>
+                    <div class="form-group">
+                        <label for="AbsenceTypeID">Mulasztás típusa:</label>
+                        <select id="editAbsenceTypeId" name="AbsenceTypeID" class="form-control">
+                            @foreach (var type in Model.AbsenceTypes)
+                            {
+                                <option value="@type.AbsenceTypeID">@type.TypeName</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Mégse</button>
+                    <button type="submit" class="btn btn-primary">Mentés</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        function showEditModal(absenceId, studentId, courseId, startDate, endDate, absenceTypeId) {
+            $('#editAbsenceId').val(absenceId);
+            $('#editStudentId').val(studentId);
+            $('#editCourseId').val(courseId);
+            $('#editStartDate').val(startDate);
+            $('#editEndDate').val(endDate);
+            $('#editAbsenceTypeId').val(absenceTypeId);
+            $('#editAbsenceModal').modal('show');
+        }
+    </script>
+}

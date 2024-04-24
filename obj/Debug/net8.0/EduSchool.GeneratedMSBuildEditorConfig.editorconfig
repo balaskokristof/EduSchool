@@ -110,16 +110,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Absence/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxDcmVhdGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Absence/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxJbmRleC5jc2h0bWw=
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Absence/AbsenceList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxBYnNlbmNlTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Absence/RecordAbsence.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxSZWNvcmRBYnNlbmNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Absence/StudentAbsence.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJzZW5jZVxTdHVkZW50QWJzZW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/CourseDetails/Index.cshtml]
@@ -160,6 +160,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Shared/_SuccessMessage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TdWNjZXNzTWVzc2FnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Shared/_ValidationScriptsPartial.cshtml]

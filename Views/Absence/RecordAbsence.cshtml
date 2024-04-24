@@ -6,7 +6,7 @@
     <input type="hidden" name="CourseID" value="@Model.CourseID" />
 
     <div class="form-group">
-        <label asp-for="StudentID">Tanuló:</label>
+        <label asp-for="StudentID" class="control-label">Tanuló:</label>
         <select asp-for="StudentID" class="form-control">
             <option value="">Válasszon tanulót</option>
             @if (Model.Students != null)
@@ -16,19 +16,24 @@
                     <option value="@student.UserID">@($"{student.LastName} {student.FirstName}")</option>
                 }
             }
-
         </select>
         <span asp-validation-for="StudentID" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Date">Mulasztás dátuma:</label>
-        <input asp-for="Date" class="form-control" type="date" />
-        <span asp-validation-for="Date" class="text-danger"></span>
+        <label asp-for="StartDate" class="control-label">Mulasztás kezdő dátuma:</label>
+        <input asp-for="StartDate" class="form-control" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+        <span asp-validation-for="StartDate" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="AbsenceTypeID">Mulasztás típusa:</label>
+        <label asp-for="EndDate" class="control-label">Mulasztás befejező dátuma:</label>
+        <input asp-for="EndDate" class="form-control" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+        <span asp-validation-for="EndDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AbsenceTypeID" class="control-label">Mulasztás típusa:</label>
         <select asp-for="AbsenceTypeID" class="form-control">
             <option value="">Válasszon mulasztás típust</option>
             @foreach (var type in Model.AbsenceTypes)

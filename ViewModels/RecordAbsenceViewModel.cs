@@ -12,9 +12,13 @@ namespace EduSchool.ViewModels
         [Required(ErrorMessage = "A kurzus azonosítóját meg kell adni.")]
         public int CourseID { get; set; }
 
-        [Required(ErrorMessage = "A mulasztás dátumát meg kell adni.")]
+        [Required(ErrorMessage = "A mulasztás kezdő dátumát meg kell adni.")]
         [Display(Name = "Mulasztás dátuma")]
-        public DateTime Date { get; set; }
+        public DateTime StartDate { get; set; }
+
+        [Required(ErrorMessage = "A mulasztás vége dátumát meg kell adni.")]
+        [Display(Name = "Mulasztás dátuma")]
+        public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "Válasszon mulasztás típust.")]
         [Display(Name = "Mulasztás típusa")]
