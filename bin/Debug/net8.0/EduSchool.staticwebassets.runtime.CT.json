@@ -592,6 +592,14 @@
       },
       "pic": {
         "Children": {
+          "adenpng.png": {
+            "Children": null,
+            "Asset": {
+              "ContentRootIndex": 0,
+              "SubPath": "pic/adenpng.png"
+            },
+            "Patterns": null
+          },
           "eduschool.png": {
             "Children": null,
             "Asset": {

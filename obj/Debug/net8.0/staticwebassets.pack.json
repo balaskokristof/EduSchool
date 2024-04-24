@@ -261,6 +261,10 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\pic\\adenpng.png",
+      "PackagePath": "staticwebassets\\pic\\adenpng.png"
+    },
+    {
       "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\pic\\eduschool.png",
       "PackagePath": "staticwebassets\\pic\\eduschool.png"
     },

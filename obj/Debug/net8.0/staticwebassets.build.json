@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8YLrKvoUSh60n4KnX/nWXNoxgJHPoE7gyEk3gHHKofc=",
+  "Hash": "cLiNp83cd6tu79BVnDX5G+Hwa4fv1VqM0tPVyOasJRg=",
   "Source": "EduSchool",
   "BasePath": "_content/EduSchool",
   "Mode": "Default",
@@ -2409,6 +2409,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\pic\\adenpng.png",
+      "SourceId": "EduSchool",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\",
+      "BasePath": "_content/EduSchool",
+      "RelativePath": "pic/adenpng.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\pic\\adenpng.png"
     },
     {
       "Identity": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\pic\\eduschool.png",

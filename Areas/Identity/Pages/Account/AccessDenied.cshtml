@@ -1,14 +1,22 @@
 ﻿@page
 @model AccessDeniedModel
 @{
-    ViewData["Title"] = "Nincs hozzáférése ehez az erőforráshoz";
+    ViewData["Title"] = "Nincs hozzáférése ehez az erőforráshoz!";
 }
 
 <head>
     <link rel="stylesheet" href="~/css/addcourse.css" />
 </head>
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">Nem rendelkezik hozzáféréssel az megztekintéséhez.</p>
-</header>
+<body>
+    <div class="container">
+        <header class="text-center">
+            <h1 class="text-danger">@ViewData["Title"]</h1>
+            <p class="text-danger">Nem rendelkezik hozzáféréssel az megtekintéséhez.</p>
+        </header>
+
+        <div class="center-image text-center">
+            <img src="~/pic/adenpng.png" alt="403" class="img-fluid" />
+        </div>
+    </div>
+</body>

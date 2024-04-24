@@ -54,7 +54,7 @@
             @foreach (var kurzus in courses)
             {
                 <div class="col-md-4 mb-3">
-                    <div class="card">
+                    <div class="card" style="cursor: pointer;" onclick="window.location='@Url.Action("Index", "CourseDetails", new { courseID = kurzus.CourseID })'">
                         <div class="card-body">
                             <h5 class="card-title">@kurzus.Name</h5>
                             <h6 class="card-subtitle mb-2 text-muted">Kategória: @kurzus.Category</h6>
@@ -63,12 +63,13 @@
                             <p class="card-text">Befejezés dátuma: @kurzus.EndDate.ToLongDateString()</p>
                             <p class="card-text">Oktató neve: @kurzus.InstructorName</p>
                             <p class="card-text">A kurzus azonosítószáma: <b>@kurzus.CourseID</b></p>
-                            <a href="@Url.Action("Index", "CourseDetails", new { courseID = kurzus.CourseID })" class="card-link">Részletek</a>
                         </div>
                     </div>
                 </div>
             }
         </div>
+
+
     }
     else
     {
