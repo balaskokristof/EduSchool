@@ -1,71 +1,145 @@
 ﻿@model GradeCreateViewModel
 
-<h2>Érdemjegy rögzítése</h2>
+<style>
+    body {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+    }
 
-<form asp-action="Create" asp-controller="Grade" method="post">
-    <div class="form-group">
-        <input type="hidden" name="courseId" value="@Model.CourseID" />
-    </div>
+    .container {
+        margin-top: 30px;
+    }
 
-    <div class="form-group">
-        <label for="globalWeight">Globális súlyozás:</label>
-        <select class="form-control" id="globalWeight">
-            <option value="100">100%</option>
-            <option value="200">200%</option>
-            <option value="300">300%</option>
-        </select>
-    </div>
+    h2 {
+        color: #f1f1f1;
+        margin-bottom: 20px;
+    }
 
-    <div class="form-group">
-        <label for="gradeTitle">Értékelés témája:</label>
-        <input type="text" class="form-control" id="gradeTitle" name="gradeTitle" />
-    </div>
+    .form-group label {
+        color: #f1f1f1;
+    }
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Tanuló neve</th>
-                <th>Jegy értéke</th>
-                <th>Jegy súlya</th>
-                <th>Megjegyzés</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Students.Count; i++)
-            {
-                var student = Model.Students[i];
+    .form-control {
+        background-color: #3c3c3c;
+        color: #f1f1f1;
+        border: 1px solid #4c4c4c;
+    }
+
+        .form-control:focus {
+            background-color: #4c4c4c;
+            color: #f1f1f1;
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+        }
+
+    .table {
+        background-color: #2d2d2d;
+        color: #f1f1f1;
+    }
+
+        .table thead th {
+            border-bottom: 2px solid #3c3c3c;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #3c3c3c;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .btn-secondary.active {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+</style>
+
+<div class="container">
+    <h2>Érdemjegy rögzítése</h2>
+
+    <form asp-action="Create" asp-controller="Grade" method="post">
+        <div class="form-group">
+            <input type="hidden" name="courseId" value="@Model.CourseID" />
+        </div>
+        <div class="form-group">
+            <label for="gradeTitle">Értékelés témája:</label>
+            <input type="text" class="form-control" id="gradeTitle" name="gradeTitle" />
+        </div>
+        <br />
+        <div class="form-group">
+            <label for="globalWeight">Globális súlyozás:</label>
+            <select class="form-control" id="globalWeight">
+                <option value="100">100%</option>
+                <option value="200">200%</option>
+                <option value="300">300%</option>
+            </select>
+        </div>
+
+
+        <br />
+        <br />
+
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>@student.StudentName</td>
-                    <td>
-                        <div class="btn-group" role="group" aria-label="Grade Value">
-                            @for (int j = 1; j <= 5; j++)
-                            {
-                                <button type="button" class="btn btn-secondary grade-btn @(j == 1 ? "active" : "")"
-                                        value="@j" name="students[@i].SelectedGradeValue">
-                                    @j
-                                </button>
-                            }
-                        </div>
-                        <input type="hidden" class="grade-value-input" name="students[@i].SelectedGradeValue" value="@student.SelectedGradeValue" />
-                    </td>
-                    <td>
-                        <select class="form-control weight-select" name="students[@i].Weight">
-                            <option value="100">100%</option>
-                            <option value="200">200%</option>
-                            <option value="300">300%</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="form-control" name="students[@i].Comment" /></td>
-
+                    <th>Tanuló neve</th>
+                    <th>Jegy értéke</th>
+                    <th>Jegy súlya</th>
+                    <th>Megjegyzés</th>
                 </tr>
-                <input type="hidden" name="students[@i].StudentID" value="@student.StudentID" hidden />
-            }
-        </tbody>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Students.Count; i++)
+                {
+                    var student = Model.Students[i];
+                    <tr>
+                        <td>@student.StudentName</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Grade Value">
+                                @for (int j = 1; j <= 5; j++)
+                                {
+                                    <button type="button" class="btn btn-secondary grade-btn"
+                                            value="@j" name="students[@i].SelectedGradeValue">
+                                        @j
+                                    </button>
+                                }
+                            </div>
+                            <input type="hidden" class="grade-value-input" name="students[@i].SelectedGradeValue" value="@student.SelectedGradeValue" />
+                        </td>
+                        <td>
+                            <select class="form-control weight-select" name="students[@i].Weight">
+                                <option value="100">100%</option>
+                                <option value="200">200%</option>
+                                <option value="300">300%</option>
+                            </select>
+                        </td>
+                        <td><input type="text" class="form-control" name="students[@i].Comment" /></td>
+                    </tr>
+                    <input type="hidden" name="students[@i].StudentID" value="@student.StudentID" hidden />
+                }
+            </tbody>
+        </table>
 
-    </table>
-
-    <button type="submit" class="btn btn-primary">Mentés</button>
-</form>
+        <button type="submit" class="btn btn-primary">Mentés</button>
+    </form>
+</div>
 
 @section Scripts {
     <script>

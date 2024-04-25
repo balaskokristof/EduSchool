@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace EduSchool.Controllers
 {
-    
+
     public class CourseController : Controller
     {
         private readonly EduContext _context;
@@ -34,32 +34,39 @@ namespace EduSchool.Controllers
             var loggedinuser = await _context.Users.FindAsync(loggedinUser);
             if (model.StartDate > model.EndDate)
             {
-                ModelState.AddModelError(string.Empty, "A befejezési dátum nem lehet korábbi a kezdési dátumnál.");
+                TempData["ErrorMessage"] = "A kurzus kezdő dátuma nem lehet nagyobb, mint a vég dátuma";
             }
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError(string.Empty, "A megadott adatok nem megfelelőek.");
+                TempData["ErrorMessage"] = "A megadott adatok nem megfelelőek";
             }
-            else if(ModelState.IsValid)
+            try
             {
-                var course = new Models.DataModel.Course
+                if(ModelState.IsValid)
                 {
-                    Name = model.Name,
-                    Description = model.Description,
-                    StartDate = model.StartDate,
-                    EndDate = model.EndDate,
-                    Category = model.Category,
-                    InstructorID = loggedinuser.UserID,
-                    InstructorName = loggedinuser.LastName + " " + loggedinuser.FirstName
-                    
-                };
+                    var course = new Models.DataModel.Course
+                    {
+                        Name = model.Name,
+                        Description = model.Description,
+                        StartDate = model.StartDate,
+                        EndDate = model.EndDate,
+                        Category = model.Category,
+                        InstructorID = loggedinuser.UserID,
+                        InstructorName = loggedinuser.LastName + " " + loggedinuser.FirstName
 
-                _context.Courses.Add(course);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                    };
+
+                    _context.Courses.Add(course);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "A kurzus sikeresen létrehozva";
+                    return RedirectToAction("Index", "Home");
+                }
             }
-
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Hiba történt a kurzus létrehozása közben";
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -71,34 +78,8 @@ namespace EduSchool.Controllers
             ViewBag.InstructorName = loggedinUser.LastName + " " + loggedinUser.FirstName;
             return View();
 
-            /*
-            var students = await _context.Users
-                .Where(u => u.UserType == UserType.Student)
-                .Select(s => s.UserID)
-                .ToListAsync();
-
-            var viewModel = new CourseViewModel
-            {
-                Students = students
-            };
-
-            return View(viewModel);
-        }
-            */
         }
 
-        /*
-        [HttpGet]
-        public async Task<IActionResult> GetStudents()
-        {
-            var students = await _context.Users
-                .Where(u => u.UserType == UserType.Student)
-                .Select(s => new { UserID = s.UserID, FullName = s.FirstName + " " + s.LastName })
-                .ToListAsync();
-
-            return Json(students);
-        }
-        */
         [Authorize(Roles = "Student")]
         [HttpPost]
         public async Task<IActionResult> Enroll(CourseEnrollViewModel course)
@@ -108,29 +89,36 @@ namespace EduSchool.Controllers
             var existingCourse = await _context.Courses.FindAsync(course.CourseId);
             if (existingCourse == null)
             {
-                ModelState.AddModelError(string.Empty, "A megadott kurzus nem létezik.");
+                TempData["ErrorMessage"] = "A kurzus nem található.";
                 return View("CourseEnroll");
             }
             var existingEnrollment = await _context.Enrollments
                 .FirstOrDefaultAsync(e => e.CourseID == course.CourseId && e.StudentID == loggedinUserId);
             if (existingEnrollment != null)
             {
-                ModelState.AddModelError(string.Empty, "Ön már fel van véve erre a kurzusra.");
+                TempData["ErrorMessage"] = "Ön már feliratkozott erre a kurzusra.";
                 return View("CourseEnroll");
             }
-
-            var enrollment = new Enrollment
+            try
             {
-                CourseID = course.CourseId,
-                StudentID = loggedinUserId
-            };
 
-            _context.Enrollments.Add(enrollment);
-            await _context.SaveChangesAsync();
+                var enrollment = new Enrollment
+                {
+                    CourseID = course.CourseId,
+                    StudentID = loggedinUserId
+                };
 
-    return RedirectToAction("Index", "Home");
-
+                _context.Enrollments.Add(enrollment);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Hiba történt a kurzusra való feliratkozás közben.";
+            }
+       
+            return RedirectToAction("Index", "Home");
         }
+  
 
         [Authorize(Roles = "Student")]
         public IActionResult CourseEnroll()
@@ -138,6 +126,6 @@ namespace EduSchool.Controllers
             return View();
         }
     }
-
-
 }
+
+

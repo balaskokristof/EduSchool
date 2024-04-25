@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "404 - Not Found";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/startpage.css" />
+</head>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1>404 - Az oldal nem található</h1>
+            <p>Sajnáljuk, de az ön által keresett oldal nem található.</p>
+            <p>Lehetséges, hogy az oldal már nem létezik, vagy hibás az URL.</p>
+            <p>Kérjük, ellenőrizze az URL-t, vagy navigáljon vissza a <a href="@Url.Action("Index", "Home")">kezdőlapra</a>.</p>
+        </div>
+    </div>
+</div>

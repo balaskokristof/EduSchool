@@ -19,7 +19,7 @@ namespace EduSchool.Controllers
             var course = await _context.Courses.FindAsync(courseID);
             if (course == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
             var loggedinUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loggedinuser = await _context.Users.FindAsync(loggedinUser);

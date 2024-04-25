@@ -1,30 +1,108 @@
 ﻿@model EduSchool.ViewModels.StudentGradeViewModel1
 
-<h2>Érdemjegyeim</h2>
 
-@if (Model.Grades.Count == 0)
-{
-    <p>Nincsenek jegyei ehhez a kurzushoz.</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Jegyek</th>
-                <th>Dátum</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var grade in Model.Grades)
+<style>
+    body {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+        font-size: 16px;
+    }
+
+    .card {
+        background-color: #2d2d2d;
+        border: 1px solid #3c3c3c;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #0077b6;
+        color: #f1f1f1;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .table {
+        margin-bottom: 0;
+        color: #f1f1f1;
+    }
+
+        .table thead th {
+            border-top: none;
+            color: #f1f1f1;
+        }
+
+        .table tbody td {
+            color: #f1f1f1;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #3c3c3c;
+    }
+
+    .no-grades {
+        font-size: 1.2rem;
+        color: #b4b4b4;
+    }
+
+    .grade-value {
+        color: #f1f1f1;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+        .grade-value:hover {
+            color: #b4b4b4;
+        }
+
+    .grade-date {
+        color: #b4b4b4;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0">@Model.StudentName - Érdemjegyeim</h2>
+        </div>
+        <div class="card-body">
+            @if (Model.Grades.Count == 0)
             {
-                <tr>
-                    <td>
-                        <a href="#" data-toggle="tooltip" title="Érték: @grade.GradeValue, Cím: @grade.GradeTitle, Súly: @grade.Weight%, Megjegyzés: @grade.Comment">@grade.GradeValue</a>
-                    </td>
-                    <td>@grade.GradeDate.ToString("yyyy-MM-dd")</td>
-                </tr>
+                <p class="no-grades">Nincsenek jegyei ehhez a kurzushoz.</p>
             }
-        </tbody>
-    </table>
-}
+            else
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Jegyek</th>
+                            <th>Dátum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var grade in Model.Grades)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="grade-value" data-bs-toggle="tooltip" title="Érték: @grade.GradeValue, Cím: @grade.GradeTitle, Súly: @grade.Weight%, Megjegyzés: @grade.Comment">@grade.GradeValue</span>
+                                </td>
+                                <td class="grade-date">@grade.GradeDate.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <br />
+    <br />
+    <a href="@Url.Action("Index", "Home")" class="btn btn-sm btn-secondary">Vissza a főoldalra</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+</script>

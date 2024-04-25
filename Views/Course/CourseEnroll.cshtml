@@ -4,23 +4,89 @@
     ViewData["Title"] = "Kurzusra jelentkezés";
 }
 
-@Html.ValidationSummary()
-
 <head>
-	<link href="~/css/addcourse.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #2d2d2d;
+            border: 1px solid #3c3c3c;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #f1f1f1;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #b4b4b4;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #f1f1f1;
+        }
+
+        input[type="number"] {
+            background-color: #3c3c3c;
+            border: none;
+            color: #f1f1f1;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            background-color: #0077b6;
+            border: none;
+            color: #f1f1f1;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #005c8a;
+            }
+
+        .validation-summary-errors {
+            color: #ff4646;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
-<h2>Kurzusra jelentkezés</h2>
-<p>Kérem, adja meg az oktatója által kiadott kurzus azonosítót a kurzusra jelentkezéshez!</p>
+<br />
+<div class="container">
+    <h2>Kurzusra jelentkezés</h2>
+    <p>Kérem, adja meg az oktatója által kiadott kurzus azonosítót a kurzusra jelentkezéshez!</p>
 
-<form asp-action="Enroll" method="post">
-    <div class="form-group">
-        <label asp-for="CourseId">A felvenni kívánt kurzus azonosítószáma:</label>
-        <br />
-        <input type="number" class="form-control" id="CourseId" name="courseId" required>
-    </div>
-    <br>
-    <button type="submit" class="btn btn-primary">Jelentkezés</button>
-</form>
+    @Html.ValidationSummary(null, new { @class = "validation-summary-errors" })
 
-
+    <form asp-action="Enroll" method="post">
+        <div class="form-group">
+            <label asp-for="CourseId">A felvenni kívánt kurzus azonosítószáma:</label>
+            <input type="number" class="form-control" id="CourseId" name="courseId" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Jelentkezés</button>
+    </form>
+</div>

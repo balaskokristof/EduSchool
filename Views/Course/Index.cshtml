@@ -4,58 +4,127 @@
     ViewData["Title"] = "Új kurzus hozzáadása";
 }
 
-
-@Html.ValidationSummary()
 <head>
-	<link href="~/css/addcourse.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            font-size: 16px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #2d2d2d;
+            border: 1px solid #3c3c3c;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h4 {
+            text-align: center;
+            color: #f1f1f1;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #f1f1f1;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            background-color: #3c3c3c;
+            border: none;
+            color: #f1f1f1;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        input[readonly] {
+            background-color: #3c3c3c;
+            color: #b4b4b4;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            background-color: #0077b6;
+            border: none;
+            color: #f1f1f1;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #005c8a;
+            }
+
+        .text-danger {
+            color: #ff4646;
+        }
+
+        a {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+
+            a:hover {
+                color: #b4b4b4;
+            }
+    </style>
 </head>
 
-<h4>Új kurzus létrehozása</h4>
-<hr />
+<div class="form-container">
+    <h4>Új kurzus létrehozása</h4>
+    <hr />
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label">Kurzus neve:</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label">Kurzus leírás:</label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label">Kezdési dátum:</label>
-                <input type="date" asp-for="StartDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EndDate" class="control-label">Befejezési dátum:</label>
-                <input type="date" asp-for="EndDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
-                <span asp-validation-for="EndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="control-label">Kategória:</label>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InstructorID" class="control-label">Oktató neve:</label>
-                <input asp-for="InstructorID" class="form-control" readonly value="@ViewBag.InstructorName"/>
-                <span asp-validation-for="InstructorID" class="text-danger"></span>
-            </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-group">
-                <input type="submit" value="Létrehozás" class="btn btn-primary" />
-            </div>
-           
-        </form>
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Kurzus neve:</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label">Kurzus leírás:</label>
+            <input asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate" class="control-label">Kezdési dátum:</label>
+            <input type="date" asp-for="StartDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EndDate" class="control-label">Befejezési dátum:</label>
+            <input type="date" asp-for="EndDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Category" class="control-label">Kategória:</label>
+            <input asp-for="Category" class="form-control" />
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="InstructorID" class="control-label">Oktató neve:</label>
+            <input asp-for="InstructorID" class="form-control" readonly value="@ViewBag.InstructorName" style="background-color: #3c3c3c; color: #b4b4b4;" />
+            <span asp-validation-for="InstructorID" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Létrehozás" class="btn btn-primary" />
+        </div>
+    </form>
+
+    <div>
+        <a asp-controller="Home" asp-action="Index">Vissza a listához</a>
     </div>
-</div>
-
-<div>
-    <a asp-controller="Home" asp-action="Index">Vissza a listához</a>
 </div>

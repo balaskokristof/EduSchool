@@ -5,17 +5,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EduSchool.Controllers
 {
     public class AbsenceController : Controller
     {
         private readonly EduContext _context;
+
         public AbsenceController(EduContext context)
         {
             _context = context;
         }
-
 
         [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> RecordAbsence(int courseId)
@@ -25,7 +28,7 @@ namespace EduSchool.Controllers
 
             if (course == null || course.InstructorID != loggedInUserId)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var students = await _context.Users
@@ -48,8 +51,12 @@ namespace EduSchool.Controllers
         [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> RecordAbsence(RecordAbsenceViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
+                if (model.StudentID == null)
+                {
+                    TempData["ErrorMessage"] = "Kérjük, válasszon ki egy tanulót!";
+                    return RedirectToAction("RecordAbsence", new { courseId = model.CourseID });
+                }
+
                 var absence = new Absence
                 {
                     StudentID = model.StudentID,
@@ -60,21 +67,18 @@ namespace EduSchool.Controllers
                 };
 
                 _context.Absences.Add(absence);
-                await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "Home");
-            }
-
-            var students = await _context.Users
-                .Where(u => u.Enrollments.Any(e => e.CourseID == model.CourseID))
-                .ToListAsync();
-
-            var absenceTypes = await _context.AbsenceTypes.ToListAsync();
-
-            model.Students = students;
-            model.AbsenceTypes = absenceTypes;
-
-            return View(model);
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Sikeres rögzítés!";
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (DbUpdateException ex)
+                {
+                    TempData["ErrorMessage"] = "Hiba történt a mulasztás rögzítésekor. Kérjük, próbálja újra.";
+                    return RedirectToAction("RecordAbsence", new { courseId = model.CourseID });
+                }
         }
 
         [Authorize(Roles = "Teacher")]
@@ -85,7 +89,7 @@ namespace EduSchool.Controllers
 
             if (course == null || course.InstructorID != loggedInUserId)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var absenceTypes = await _context.AbsenceTypes.ToListAsync();
@@ -111,7 +115,7 @@ namespace EduSchool.Controllers
             var absence = await _context.Absences.FindAsync(absenceId);
             if (absence == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             return PartialView(absence);
@@ -125,17 +129,52 @@ namespace EduSchool.Controllers
             var courseExists = await _context.Courses.AnyAsync(c => c.CourseID == absence.CourseID);
             if (!courseExists)
             {
-                ModelState.AddModelError("", "A tanfolyam nem található.");
+                TempData["ErrorMessage"] = "A tanfolyam nem található.";
                 return RedirectToAction("Index", "Home");
             }
 
-            _context.Update(absence);
-            await _context.SaveChangesAsync();
-
-            TempData["SuccessMessage"] = "A módosítás sikeresen megtörtént!";
-
-            return RedirectToAction("AbsenceList", new { courseId = absence.CourseID });
+            try
+            {
+                _context.Update(absence);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Sikeres módosítás!";
+                return RedirectToAction("AbsenceList", new { courseId = absence.CourseID });
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Hiba történt a művelet során";
+                return RedirectToAction("Index", "Home");
+            }
         }
 
+        [Authorize(Roles = "Student")]
+        public async Task<IActionResult> StudentAbsence(int courseId)
+        {
+            var loggedInStudentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var isEnrolled = await _context.Enrollments
+                .AnyAsync(e => e.CourseID == courseId && e.StudentID == loggedInStudentId);
+
+            if (!isEnrolled)
+            {
+                return View("NotFound");
+            }
+
+            var absences = await _context.Absences
+                .Include(a => a.Course)
+                .Include(a => a.AbsenceType)
+                .Where(a => a.CourseID == courseId && a.StudentID == loggedInStudentId)
+                .ToListAsync();
+
+            var course = await _context.Courses.FindAsync(courseId);
+
+            var viewModel = new StudentAbsenceViewModel
+            {
+                CourseId = courseId,
+                CourseName = course.Name,
+                Absences = absences
+            };
+
+            return View(viewModel);
+        }
     }
 }

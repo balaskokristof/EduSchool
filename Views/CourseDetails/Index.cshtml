@@ -1,4 +1,5 @@
 ﻿@model EduSchool.Models.DataModel.Course
+
 @using Microsoft.AspNetCore.Identity
 
 @{
@@ -15,50 +16,61 @@
         padding: 0;
     }
 
-    .navigacio {
-        background-color: #0077b6;
-        overflow: hidden;
-    }
-
-        .navigacio a {
-            float: left;
-            display: block;
-            color: #f1f1f1;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-            .navigacio a:hover {
-                background-color: #005c8a;
-            }
-    .container {
+    .course-details {
         max-width: 960px;
         margin: 0 auto;
         padding: 20px;
     }
 
-    h2 {
-        text-align: center;
-        color: #f1f1f1;
-        margin-bottom: 20px;
-    }
-
-    .details {
+    .course-header {
         background-color: #2d2d2d;
         padding: 20px;
         border-radius: 5px;
         margin-bottom: 20px;
     }
 
-        .details p {
+        .course-header h2 {
+            color: #f1f1f1;
+            margin: 0;
+        }
+
+    .course-navigation {
+        background-color: #3c3c3c;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+        .course-navigation a {
+            color: #f1f1f1;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+            .course-navigation a:hover {
+                color: #b4b4b4;
+            }
+
+    .course-info {
+        background-color: #2d2d2d;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+        .course-info p {
             margin-bottom: 10px;
         }
 
+    .course-posts {
+        background-color: #2d2d2d;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
     .back-link {
-        display: block;
         text-align: center;
-        margin-top: 20px;
     }
 
         .back-link a {
@@ -71,35 +83,41 @@
             }
 </style>
 
-<div class="navbar navigacio">
-    @if (User.IsInRole("Teacher"))
-    {
-        <a href="@Url.Action("Create", "Grade", new { courseId = Model.CourseID })" class="card-link">Jegy rögzítése</a>
-        <a href="@Url.Action("RecordAbsence", "Absence", new { courseId = Model.CourseID })" class="card-link">Mulasztás rögzítése</a>
-        <a href="@Url.Action("AllCourseGrade", "Grade", new { courseId = Model.CourseID })" class="card-link">Kurzus jegyei</a>
-        <a href="@Url.Action("AbsenceList", "Absence", new { courseId = Model.CourseID })" class="card-link">Mulasztások kezelése</a>
+<div class="course-details">
+    <div class="course-header">
+        <h2>Kurzus neve: @Model.Name</h2>
+    </div>
 
-    }
-    else if (User.IsInRole("Student"))
-    {
-        <a href="@Url.Action("StudentGrade", "Grade", new { courseId = Model.CourseID })" class="card-link">Érdemjegyeim</a>
-        <a asp-controller="Abscence" asp-action="Index">Mulasztások</a>
-    }
-</div>
+    <div class="course-navigation">
+        @if (User.IsInRole("Teacher"))
+        {
+            <a href="@Url.Action("Create", "Grade", new { courseId = Model.CourseID })">Jegy rögzítése</a>
+            <a href="@Url.Action("RecordAbsence", "Absence", new { courseId = Model.CourseID })">Mulasztás rögzítése</a>
+            <a href="@Url.Action("AllCourseGrade", "Grade", new { courseId = Model.CourseID })">Kurzus jegyei</a>
+            <a href="@Url.Action("AbsenceList", "Absence", new { courseId = Model.CourseID })">Mulasztások kezelése</a>
+        }
+        else if (User.IsInRole("Student"))
+        {
+            <a href="@Url.Action("StudentGrade", "Grade", new { courseId = Model.CourseID })">Érdemjegyeim</a>
+            <a href="@Url.Action("StudentAbsence", "Absence", new { courseId = Model.CourseID })">Hiányzásaim</a>
+        }
+    </div>
 
-<div class="container">
-    <h2>@Model.Name</h2>
-
-    <div class="details">
+    <div class="course-info">
         <p><strong>Kategória:</strong> @Model.Category</p>
         <p><strong>Leírás:</strong> @Model.Description</p>
         <p><strong>Kezdés dátuma:</strong> @Model.StartDate.ToShortDateString()</p>
         <p><strong>Befejezés dátuma:</strong> @Model.EndDate.ToShortDateString()</p>
         <p><strong>Oktató neve:</strong> @Model.InstructorName</p>
     </div>
-    <h3>Kurzus bejegyzések placeholder</h3>
+
+    <div class="course-posts">
+        <h3>Kurzus bejegyzések</h3>
+        <p>Itt találhatod a kurzussal kapcsolatos legfrissebb híreket, bejelentéseket és feladatokat.</p>
+        <p>Placeholder a kurzus bejegyzéseknek...</p>
+    </div>
 
     <div class="back-link">
-        <a asp-controller="Home" asp-action="Index">Vissza a listához</a>
+        <a asp-controller="Home" asp-action="Index">Vissza a kurzusok listájához</a>
     </div>
 </div>

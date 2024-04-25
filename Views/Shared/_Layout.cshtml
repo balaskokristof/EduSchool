@@ -73,6 +73,8 @@
     <div class="container">
         <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
             @await Html.PartialAsync("~/Views/Shared/_SuccessMessage.cshtml")
+            @await Html.PartialAsync("~/Views/Shared/_ErrorMessage.cshtml")
+            @await Html.PartialAsync("~/Views/Shared/_WarningMessage.cshtml")
         </div>
 
         <main role="main" class="pb-3">

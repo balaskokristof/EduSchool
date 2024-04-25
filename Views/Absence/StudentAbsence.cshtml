@@ -1,5 +1,60 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model EduSchool.ViewModels.StudentAbsenceViewModel
+
 @{
+    ViewData["Title"] = "Hiányzások";
 }
+
+<style>
+    body {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+    }
+
+    .container {
+        margin-top: 30px;
+    }
+
+    .table {
+        background-color: #2d2d2d;
+        color: #f1f1f1;
+    }
+
+        .table thead th {
+            border-bottom: 2px solid #3c3c3c;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #3c3c3c;
+    }
+</style>
+
+<div class="container">
+    <h2>Saját hiányzásaim - @Model.CourseName</h2>
+
+    @if (Model.Absences.Any())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Kezdő dátum</th>
+                    <th>Vég dátum</th>
+                    <th>Típus</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var absence in Model.Absences)
+                {
+                    <tr>
+                        <td>@absence.StartDate.ToShortDateString()</td>
+                        <td>@absence.EndDate.ToShortDateString()</td>
+                        <td>@absence.AbsenceType.TypeName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Nincs rögzített hiányzásod ebben a kurzusban.</p>
+    }
+</div>

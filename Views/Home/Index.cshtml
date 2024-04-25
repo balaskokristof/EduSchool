@@ -4,52 +4,100 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @model IEnumerable<Course>
-
 @inject UserManager<ApplicationUser> UserManager
 @inject EduContext Context
+
 @{
     List<Course> courses = null;
     if (User.Identity.IsAuthenticated)
     {
         var user = await UserManager.GetUserAsync(User);
-
         var isStudent = await UserManager.IsInRoleAsync(user, "Student");
         var isTeacher = await UserManager.IsInRoleAsync(user, "Teacher");
-
         if (isStudent)
         {
             var studentId = user.Id;
-
             var enrolledCourses = await Context.Enrollments
-                                                .Where(e => e.StudentID == studentId)
-                                                .Select(e => e.CourseID)
-                                                .ToListAsync();
+                .Where(e => e.StudentID == studentId)
+                .Select(e => e.CourseID)
+                .ToListAsync();
             courses = await Context.Courses
-                                    .Where(c => enrolledCourses.Contains(c.CourseID))
-                                    .ToListAsync();
+                .Where(c => enrolledCourses.Contains(c.CourseID))
+                .ToListAsync();
         }
         if (isTeacher)
         {
             var teacherId = user.Id;
-
             courses = await Context.Courses
-                                    .Where(c => c.InstructorID == teacherId)
-                                    .ToListAsync();
+                .Where(c => c.InstructorID == teacherId)
+                .ToListAsync();
         }
     }
 }
+
+<head>
+    <link rel="stylesheet" href="~/css/startpage.css" />
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+        }
+
+        .jumbotron {
+            background-color: #2d2d2d;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: .3rem;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            font-weight: 300;
+        }
+
+        .display-4 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+
+        .card {
+            background-color: #2d2d2d;
+            border: 1px solid #3c3c3c;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+        .card-title {
+            color: #f1f1f1;
+        }
+
+        .card-subtitle {
+            color: #b4b4b4;
+        }
+
+        .card-text {
+            color: #f1f1f1;
+        }
+    </style>
+</head>
 
 @if (User.Identity.IsAuthenticated)
 {
     var user = await UserManager.GetUserAsync(User);
     @if (courses != null && courses.Any())
     {
-        <head>
-            <link rel="stylesheet" href="~/css/startpage.css" />
-        </head>
+        <div class="jumbotron">
+            <h1 class="display-4">Üdvözöljük, @user.UserName!</h1>
+            <p class="lead">Fedezze fel az elérhető kurzusokat, és mélyítse el tudását az EduSchool segítségével.</p>
+        </div>
 
         <h2>Kurzusok</h2>
-
         <div class="row">
             @foreach (var kurzus in courses)
             {
@@ -68,21 +116,25 @@
                 </div>
             }
         </div>
-
-
     }
     else
     {
         <div class="text-center">
             @if (await UserManager.IsInRoleAsync(user, "Teacher"))
             {
-                <h2 class="display-4">Még nem hozott létre kurzust!</h2>
-                <p class="lead">Kattintson a menüben a "Új kurzus létrehozása" gombra!</p>
+                <div class="jumbotron">
+                    <h1 class="display-4">Üdvözöljük, @user.UserName!</h1>
+                    <p class="lead">Még nem hozott létre kurzust. Hozzon létre egy új kurzust az alábbi gombra kattintva!/p>
+                    <a class="btn btn-primary btn-lg" href="@Url.Action("Index", "Course")" role="button">Új kurzus létrehozása</a>
+                </div>
             }
             else if (await UserManager.IsInRoleAsync(user, "Student"))
             {
-                <h2 class="display-4">Még nem tagja egyetlen kurzusnak sem</h2>
-                <p class="lead">Vegyen fel egy kurzust a menüben a "Kurzus felvétele" gombra kattintva!</p>
+                <div class="jumbotron">
+                    <h1 class="display-4">Üdvözöljük, @user.UserName!</h1>
+                    <p class="lead">Még nem tagja egyetlen kurzusnak sem.</p>
+                    <a class="btn btn-primary btn-lg" href="@Url.Action("CourseEnroll", "Course")" role="button">Kurzus felvétele</a>
+                </div>
             }
         </div>
     }
@@ -90,17 +142,10 @@
 else
 {
     <div class="text-center">
-        <h2 class="display-4">Üdvözlöm az EduSchool záródolgozatom kezdőoldalán!</h2>
-        <p class="lead">Az oldal használatához regisztráljon vagy jelentkezzen be!</p>
+        <div>
+            <h1 class="display-4">Üdvözöljük az EduSchool oldalon!</h1>
+            <p class="lead">Az oldal használatájoz kérem jelentkezzen be vagy regisztráljon!</p>
+        </div>
         <img src="~/pic/undraw_login_re_4vu2.svg" alt="login" class="img-fluid" style="max-width: 50%; height: auto;">
     </div>
 }
-
-<style>
-    body {
-        background-color: #1e1e1e;
-        color: #f1f1f1;
-    }
-</style>
-
-

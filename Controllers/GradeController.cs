@@ -5,6 +5,7 @@ using EduSchool.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Linq;
 using System.Security.Claims;
@@ -27,14 +28,14 @@ namespace EduSchool.Controllers
             var course = await _context.Courses.FindAsync(courseId);
             if (course == null)
             {
-                return NotFound();
+
             }
 
             var loggedinUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loggedinUser = await _context.Users.FindAsync(loggedinUserId);
             if (loggedinUser == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             if (course.InstructorID != loggedinUser.UserID)
@@ -59,38 +60,59 @@ namespace EduSchool.Controllers
 
             return View(viewModel);
         }
-
         [HttpPost]
         [Authorize(Roles = "Teacher")]
         public IActionResult Create(int courseId, List<StudentGradeViewModel> students, string gradeTitle)
         {
-            if (students != null)
+            if (students == null || students.All(s => s.SelectedGradeValue == 0 && s.Weight == 0 && string.IsNullOrEmpty(s.Comment)))
             {
-                foreach (var student in students)
-                {
-                    if (student.SelectedGradeValue != 0 && !string.IsNullOrEmpty(student.Comment))
-                    {
-                        var grade = new Grade
-                        {
-                            CourseID = courseId,
-                            StudentID = student.StudentID,
-                            GradeValue = student.SelectedGradeValue,
-                            Weight = student.Weight,
-                            Comment = student.Comment,
-                            GradeDate = DateTime.Now,
-                            GradeTitle = gradeTitle
-                        };
-
-                        _context.Grades.Add(grade);
-                    }
-                }
-
-                _context.SaveChanges();
-
-                return RedirectToAction("Index", "CourseDetails", new { courseID = courseId });
+                TempData["ErrorMessage"] = "Nem adott meg egyetlen tanulót sem.";
+                return RedirectToAction("Create", "Grade", new { courseId = courseId });
             }
-            return RedirectToAction("Create", "Grade", new { courseId = courseId });
+
+            bool anyStudentFilled = false;
+
+            foreach (var student in students)
+            {
+                if (student.SelectedGradeValue != 0)
+                {
+                    anyStudentFilled = true;
+
+                    if (student.Weight == 0 || string.IsNullOrEmpty(student.Comment))
+                    {
+                        TempData["WarningMessage"] = "Nem minden tanuló értékelése teljes. Kérjük, töltse ki az összes mezőt.";
+                        return RedirectToAction("Create", "Grade", new { courseId = courseId });
+                    }
+
+                    var grade = new Grade
+                    {
+                        CourseID = courseId,
+                        StudentID = student.StudentID,
+                        GradeValue = student.SelectedGradeValue,
+                        Weight = student.Weight,
+                        Comment = student.Comment,
+                        GradeDate = DateTime.Now,
+                        GradeTitle = gradeTitle
+                    };
+
+                    _context.Grades.Add(grade);
+                }
+            }
+
+            if (!anyStudentFilled)
+            {
+                TempData["ErrorMessage"] = "Egyetlen tanuló se lett naplózva.";
+                return RedirectToAction("Create", "Grade", new { courseId = courseId });
+            }
+
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "Érdemjegyek sikeresen hozzáadva.";
+
+            return RedirectToAction("Index", "CourseDetails", new { courseId = courseId });
         }
+
+
         [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> AllCourseGrade(int courseId)
         {
@@ -98,7 +120,7 @@ namespace EduSchool.Controllers
 
             if (course == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var loggedinUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -151,19 +173,19 @@ namespace EduSchool.Controllers
 
             if (student == null)
             {
-                return NotFound();
+                return View("NotFound");  
             }
 
             var enrollment = student.Enrollments.FirstOrDefault(e => e.CourseID == courseId);
             if (enrollment == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseID == courseId);
             if (course == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             var grades = student.Grades.Where(g => g.CourseID == courseId).ToList();
@@ -193,8 +215,6 @@ namespace EduSchool.Controllers
 
             return View(viewModel);
         }
-
-
 
     }
 }

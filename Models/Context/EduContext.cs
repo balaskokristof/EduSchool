@@ -73,7 +73,21 @@
                 .HasOne(a => a.AbsenceType)
                 .WithMany()
                 .HasForeignKey(a => a.AbsenceTypeID);
+
+            modelBuilder.Entity<CoursePost>()
+            .HasKey(cp => cp.CoursePostID);
+
+            modelBuilder.Entity<CoursePost>()
+                .HasOne(cp => cp.Course)
+                .WithMany()
+                .HasForeignKey(cp => cp.CourseID);
+
+            modelBuilder.Entity<CoursePost>()
+                .HasOne(cp => cp.Author)
+                .WithMany()
+                .HasForeignKey(cp => cp.AuthorID);
         }
+
     }
 
 }

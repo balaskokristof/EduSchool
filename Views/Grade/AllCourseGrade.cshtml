@@ -1,31 +1,85 @@
 ﻿@model List<EduSchool.ViewModels.AllCourseGradesViewModel1>
 
-@foreach (var item in Model)
-{
-    <h2>@item.CourseName</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Tanuló neve</th>
-                <th>Jegyei</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var student in item.Students)
-            {
+<style>
+    body {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+    }
+
+    .container {
+        margin-top: 30px;
+    }
+
+    h2 {
+        color: #f1f1f1;
+        margin-bottom: 20px;
+    }
+
+    .table {
+        background-color: #2d2d2d;
+        color: #f1f1f1;
+    }
+
+        .table thead th {
+            border-bottom: 2px solid #3c3c3c;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #3c3c3c;
+    }
+
+    .grade-cell {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .grade-item {
+        background-color: #007bff;
+        color: #f1f1f1;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .tooltip-inner {
+        background-color: #3c3c3c;
+        color: #f1f1f1;
+    }
+
+    .tooltip.bs-tooltip-top .tooltip-arrow::before {
+        border-top-color: #3c3c3c;
+    }
+</style>
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <h2>@item.CourseName</h2>
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>@student.StudentName</td>
-                    <td class="grade-cell">
-                        @foreach (var grade in student.Grades)
-                        {
-                            <span class="grade-item" data-toggle="tooltip" data-placement="top" title="Jegy értéke: @grade.GradeValue, Téma: @grade.GradeTitle, Súly: @grade.Weight%, Megjegyzés: @grade.Comment, Rögzítés dátuma: @grade.GradeDate.ToString("yyyy-MM-dd")">@grade.GradeValue</span>
-                        }
-                    </td>
+                    <th>Tanuló neve</th>
+                    <th>Jegyei</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var student in item.Students)
+                {
+                    <tr>
+                        <td>@student.StudentName</td>
+                        <td class="grade-cell">
+                            @foreach (var grade in student.Grades)
+                            {
+                                <span class="grade-item" data-toggle="tooltip" data-placement="top" title="Jegy értéke: @grade.GradeValue, Téma: @grade.GradeTitle, Súly: @grade.Weight%, Megjegyzés: @grade.Comment, Rögzítés dátuma: @grade.GradeDate.ToString("yyyy-MM-dd")">@grade.GradeValue</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
 
 @section Scripts {
     <script>
