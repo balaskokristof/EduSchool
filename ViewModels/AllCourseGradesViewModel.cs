@@ -16,6 +16,7 @@
 
     public class GradeViewModel1
     {
+        public int GradeID { get; set; }
         public int GradeValue { get; set; }
         public string GradeTitle { get; set; }
         public int Weight { get; set; }

@@ -143,7 +143,8 @@ namespace EduSchool.Controllers
                             GradeTitle = g.GradeTitle,
                             Weight = g.Weight,
                             Comment = g.Comment,
-                            GradeDate = g.GradeDate
+                            GradeDate = g.GradeDate,
+                            GradeID = g.GradeID
 
                         })
                         .ToList()
@@ -209,11 +210,69 @@ namespace EduSchool.Controllers
                     GradeTitle = g.GradeTitle,
                     Weight = g.Weight,
                     Comment = g.Comment,
-                    GradeDate = g.GradeDate
+                    GradeDate = g.GradeDate,
+                    GradeID = g.GradeID
+                   
                 }).ToList();
             }
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, int gradeValue, string gradeTitle, int weight, string comment, DateTime gradeDate)
+        {
+            var grade = _context.Grades.Find(id);
+
+            if (grade == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
+            if (gradeValue < 1 || gradeValue > 5)
+            {
+                return Json(new { success = false, message = "A jegy értékének 1 és 5 között kell lennie!" });
+            }
+
+            grade.GradeValue = gradeValue;
+            grade.GradeTitle = gradeTitle;
+            grade.Weight = weight;
+            grade.Comment = comment;
+            grade.GradeDate = gradeDate;
+
+            _context.SaveChanges();
+
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult GetGrade(int id)
+        {
+            var grade = _context.Grades.Find(id);
+            if (grade == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
+            return View("Edit", grade); // Visszatérés az Edit nézetbe a jegy adataival
+        }
+
+
+        [HttpPost]
+        public ActionResult Delete(int gradeId)
+        {
+            Console.WriteLine(gradeId+"ssssssssssssssssssssssss");
+            var grade = _context.Grades.Find(gradeId);
+            if (grade == null)
+            {
+                return View("NotFound");
+            }
+
+            _context.Grades.Remove(grade);
+
+            _context.SaveChanges();
+
+            return Json(new { success = true });
         }
 
     }
