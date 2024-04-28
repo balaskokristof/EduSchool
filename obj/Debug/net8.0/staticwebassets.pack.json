@@ -25,6 +25,50 @@
       "PackagePath": "staticwebassets\\css\\startpage.css"
     },
     {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\absenceview.css",
+      "PackagePath": "staticwebassets\\css\\views\\absenceview.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\allcgrade.css",
+      "PackagePath": "staticwebassets\\css\\views\\allcgrade.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\coursedetindex.css",
+      "PackagePath": "staticwebassets\\css\\views\\coursedetindex.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\courseenroll.css",
+      "PackagePath": "staticwebassets\\css\\views\\courseenroll.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\courseindex.css",
+      "PackagePath": "staticwebassets\\css\\views\\courseindex.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\coursestudents.css",
+      "PackagePath": "staticwebassets\\css\\views\\coursestudents.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\gradec.css",
+      "PackagePath": "staticwebassets\\css\\views\\gradec.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\homeindex.css",
+      "PackagePath": "staticwebassets\\css\\views\\homeindex.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\recordabsence.css",
+      "PackagePath": "staticwebassets\\css\\views\\recordabsence.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\studentabs.css",
+      "PackagePath": "staticwebassets\\css\\views\\studentabs.css"
+    },
+    {
+      "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\css\\views\\stugrade.css",
+      "PackagePath": "staticwebassets\\css\\views\\stugrade.css"
+    },
+    {
       "Id": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },

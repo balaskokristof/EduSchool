@@ -288,6 +288,3 @@ C:\Users\Kristof\source\repos\EduSchool\EduSchool\bin\Debug\net8.0\runtimes\win-
 C:\Users\Kristof\source\repos\EduSchool\EduSchool\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\Kristof\source\repos\EduSchool\EduSchool\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Kristof\source\repos\EduSchool\EduSchool\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
-C:\Users\Kristof\source\repos\EduSchool\EduSchool\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
-C:\Users\Kristof\source\repos\EduSchool\EduSchool\bin\Debug\net8.0\MailKit.dll
-C:\Users\Kristof\source\repos\EduSchool\EduSchool\bin\Debug\net8.0\MimeKit.dll

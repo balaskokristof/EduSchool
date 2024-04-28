@@ -7,81 +7,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    body {
-        background-color: #1e1e1e;
-        color: #f1f1f1;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
+<head>
+	<link rel="stylesheet" href="~/css/views/coursedetindex.css">
+</head>
 
-    .course-details {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 20px;
-    }
 
-    .course-header {
-        background-color: #2d2d2d;
-        padding: 20px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-
-        .course-header h2 {
-            color: #f1f1f1;
-            margin: 0;
-        }
-
-    .course-navigation {
-        background-color: #3c3c3c;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-
-        .course-navigation a {
-            color: #f1f1f1;
-            text-decoration: none;
-            margin-right: 15px;
-        }
-
-            .course-navigation a:hover {
-                color: #b4b4b4;
-            }
-
-    .course-info {
-        background-color: #2d2d2d;
-        padding: 20px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-
-        .course-info p {
-            margin-bottom: 10px;
-        }
-
-    .course-posts {
-        background-color: #2d2d2d;
-        padding: 20px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-
-    .back-link {
-        text-align: center;
-    }
-
-        .back-link a {
-            color: #f1f1f1;
-            text-decoration: none;
-        }
-
-            .back-link a:hover {
-                color: #b4b4b4;
-            }
-</style>
 
 <div class="course-details">
     <div class="course-header">
@@ -95,6 +25,7 @@
             <a href="@Url.Action("RecordAbsence", "Absence", new { courseId = Model.CourseID })">Mulasztás rögzítése</a>
             <a href="@Url.Action("AllCourseGrade", "Grade", new { courseId = Model.CourseID })">Kurzus jegyei</a>
             <a href="@Url.Action("AbsenceList", "Absence", new { courseId = Model.CourseID })">Mulasztások kezelése</a>
+            <a href="@Url.Action("CourseStudents", "CourseDetails", new { courseId = Model.CourseID })">Tanulók</a>
         }
         else if (User.IsInRole("Student"))
         {
@@ -113,11 +44,96 @@
 
     <div class="course-posts">
         <h3>Kurzus bejegyzések</h3>
-        <p>Itt találhatod a kurzussal kapcsolatos legfrissebb híreket, bejelentéseket és feladatokat.</p>
-        <p>Placeholder a kurzus bejegyzéseknek...</p>
+        <p>Itt láthatja a kurzussal kapcsolatos legfrissebb híreket, bejelentéseket és feladatokat.</p>
+
+        @if (User.IsInRole("Teacher"))
+        {
+        <button class="btn btn-sm btn-primary" onclick="createPostModal()">Új bejegyzés</button>
+        }
+
+
+        @foreach (var post in Model.CoursePosts)
+        {
+            <div class="post">
+                <h4>@post.Title</h4>
+                <p>@post.Content</p>
+                <small>Közzétéve: @post.PostDate.ToShortDateString() - @post.Author.FirstName @post.Author.LastName</small>
+                @if (User.IsInRole("Teacher"))
+                {
+                    <form asp-action="Delete" asp-controller="CoursePost" asp-route-postId="@post.CoursePostID" method="post">
+                        <button type="submit" class="btn btn-danger">Törlés</button>
+                    </form>
+                }
+            </div>
+        }
     </div>
+
 
     <div class="back-link">
         <a asp-controller="Home" asp-action="Index">Vissza a kurzusok listájához</a>
     </div>
 </div>
+
+<div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="createPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createPostModalLabel">Új bejegyzés létrehozása</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createPostForm">
+                    <input type="hidden" id="courseID" value="@Model.CourseID" />
+                    <div class="form-group">
+                        <label for="postTitle">Cím:</label>
+                        <input type="text" class="form-control" id="postTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="postContent">Tartalom:</label>
+                        <textarea class="form-control" id="postContent" rows="5" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+                <button type="button" class="btn btn-primary" id="createPostButton">Létrehozás</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        function createPostModal() {
+            $('#createPostModal').modal('show');
+        }
+
+
+        $(function () {
+            $('#createPostButton').click(function () {
+                var courseID = $('#courseID').val();
+                var title = $('#postTitle').val();
+                var content = $('#postContent').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/CoursePost/Create',
+                    data: {
+                        CourseID: courseID,
+                        Title: title,
+                        Content: content
+                    },
+                    success: function (response) {
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}

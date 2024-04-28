@@ -4,29 +4,9 @@
     ViewData["Title"] = "Hiányzások";
 }
 
-<style>
-    body {
-        background-color: #1e1e1e;
-        color: #f1f1f1;
-    }
-
-    .container {
-        margin-top: 30px;
-    }
-
-    .table {
-        background-color: #2d2d2d;
-        color: #f1f1f1;
-    }
-
-        .table thead th {
-            border-bottom: 2px solid #3c3c3c;
-        }
-
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #3c3c3c;
-    }
-</style>
+<head>
+    <link rel="stylesheet" href="~/css/views/studentabs.css">
+</head>
 
 <div class="container">
     <h2>Saját hiányzásaim - @Model.CourseName</h2>

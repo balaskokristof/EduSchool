@@ -8,8 +8,6 @@
         public string Content { get; set; }
         public DateTime PostDate { get; set; }
         public string AuthorID { get; set; }
-
-        public Course Course { get; set; }
         public User Author { get; set; }
     }
 }

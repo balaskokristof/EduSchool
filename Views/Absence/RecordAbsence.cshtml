@@ -1,55 +1,58 @@
 ﻿@model EduSchool.ViewModels.RecordAbsenceViewModel
 
-<style>
-    body {
-        background-color: #1e1e1e;
-        color: #f1f1f1;
-    }
-
-    .container {
-        margin-top: 30px;
-    }
-
-    h2 {
-        color: #f1f1f1;
-        margin-bottom: 20px;
-        font-size: 2rem;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .form-group label {
-        color: #f1f1f1;
-        font-size: 1.1rem;
-    }
-
-    .form-control {
-        background-color: #2d2d2d;
-        color: #f1f1f1;
-        border: 1px solid #3c3c3c;
-    }
-
-        .form-control:focus {
-            background-color: #3c3c3c;
+<head>
+	<link rel="stylesheet" href="~/css/views/recordabsence.css">
+    <style>
+        body {
+            background-color: #1e1e1e;
             color: #f1f1f1;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        h2 {
+            color: #f1f1f1;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .form-group label {
+            color: #f1f1f1;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            background-color: #2d2d2d;
+            color: #f1f1f1;
+            border: 1px solid #3c3c3c;
+        }
+
+            .form-control:focus {
+                background-color: #3c3c3c;
+                color: #f1f1f1;
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+
+        .btn-primary {
+            background-color: #007bff;
             border-color: #007bff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
 
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
+            .btn-primary:hover {
+                background-color: #0069d9;
+                border-color: #0062cc;
+            }
 
-        .btn-primary:hover {
-            background-color: #0069d9;
-            border-color: #0062cc;
+        .text-danger {
+            color: #dc3545;
         }
-
-    .text-danger {
-        color: #dc3545;
-    }
-</style>
+        </style>
+    </head>
 
 <div class="container">
     <h2>Mulasztás rögzítése</h2>

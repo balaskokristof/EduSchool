@@ -101,6 +101,9 @@ namespace EduSchool.Migrations.Edu
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -277,15 +280,13 @@ namespace EduSchool.Migrations.Edu
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EduSchool.Models.DataModel.Course", "Course")
-                        .WithMany()
+                    b.HasOne("EduSchool.Models.DataModel.Course", null)
+                        .WithMany("CoursePosts")
                         .HasForeignKey("CourseID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("EduSchool.Models.DataModel.Enrollment", b =>
@@ -329,6 +330,8 @@ namespace EduSchool.Migrations.Edu
             modelBuilder.Entity("EduSchool.Models.DataModel.Course", b =>
                 {
                     b.Navigation("Absences");
+
+                    b.Navigation("CoursePosts");
 
                     b.Navigation("Enrollments");
 

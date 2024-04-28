@@ -47,6 +47,100 @@
               "SubPath": "css/startpage.css"
             },
             "Patterns": null
+          },
+          "views": {
+            "Children": {
+              "absenceview.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/absenceview.css"
+                },
+                "Patterns": null
+              },
+              "allcgrade.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/allcgrade.css"
+                },
+                "Patterns": null
+              },
+              "coursedetindex.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/coursedetindex.css"
+                },
+                "Patterns": null
+              },
+              "courseenroll.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/courseenroll.css"
+                },
+                "Patterns": null
+              },
+              "courseindex.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/courseindex.css"
+                },
+                "Patterns": null
+              },
+              "coursestudents.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/coursestudents.css"
+                },
+                "Patterns": null
+              },
+              "gradec.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/gradec.css"
+                },
+                "Patterns": null
+              },
+              "homeindex.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/homeindex.css"
+                },
+                "Patterns": null
+              },
+              "recordabsence.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/recordabsence.css"
+                },
+                "Patterns": null
+              },
+              "studentabs.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/studentabs.css"
+                },
+                "Patterns": null
+              },
+              "stugrade.css": {
+                "Children": null,
+                "Asset": {
+                  "ContentRootIndex": 0,
+                  "SubPath": "css/views/stugrade.css"
+                },
+                "Patterns": null
+              }
+            },
+            "Asset": null,
+            "Patterns": null
           }
         },
         "Asset": null,

@@ -12,9 +12,11 @@ namespace EduSchool.Models.DataModel
         public string Category { get; set; }
         public string InstructorID { get; set; }
         public string InstructorName { get; set; }
+        public bool IsActive { get; set; } = true;
         public User Instructor { get; set; }
         public List<Enrollment> Enrollments { get; set; }
         public List<Grade> Grades { get; set; }
         public List<Absence> Absences { get; set; }
+        public List<CoursePost> CoursePosts { get; set; }
     }
 }

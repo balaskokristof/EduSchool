@@ -112,7 +112,6 @@ namespace EduSchool.Controllers
             return RedirectToAction("Index", "CourseDetails", new { courseId = courseId });
         }
 
-
         [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> AllCourseGrade(int courseId)
         {
@@ -220,9 +219,9 @@ namespace EduSchool.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, int gradeValue, string gradeTitle, int weight, string comment, DateTime gradeDate)
+        public async Task<ActionResult> Edit(int id, int gradeValue, string gradeTitle, int weight, string comment, DateTime gradeDate)
         {
-            var grade = _context.Grades.Find(id);
+            var grade = await _context.Grades.FindAsync(id);
 
             if (grade == null)
             {
@@ -240,40 +239,38 @@ namespace EduSchool.Controllers
             grade.Comment = comment;
             grade.GradeDate = gradeDate;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Json(new { success = true });
         }
 
         [HttpPost]
-        public ActionResult GetGrade(int id)
+        public async Task<ActionResult> GetGrade(int id)
         {
-            var grade = _context.Grades.Find(id);
+            var grade = await _context.Grades.FindAsync(id);
+
             if (grade == null)
             {
                 return RedirectToAction("NotFound", "Error");
             }
 
-            return View("Edit", grade); // Visszatérés az Edit nézetbe a jegy adataival
+            return View("Edit", grade);
         }
 
-
         [HttpPost]
-        public ActionResult Delete(int gradeId)
+        public async Task<ActionResult> Delete(int gradeId)
         {
-            Console.WriteLine(gradeId+"ssssssssssssssssssssssss");
-            var grade = _context.Grades.Find(gradeId);
+            var grade = await _context.Grades.FindAsync(gradeId);
+
             if (grade == null)
             {
                 return View("NotFound");
             }
 
             _context.Grades.Remove(grade);
-
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Json(new { success = true });
         }
-
     }
 }

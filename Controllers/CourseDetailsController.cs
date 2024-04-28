@@ -1,6 +1,7 @@
 ﻿using EduSchool.Models.Context;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace EduSchool.Controllers
@@ -15,8 +16,10 @@ namespace EduSchool.Controllers
         [Authorize]
         public async Task<IActionResult> IndexAsync(int courseID)
         {
-            
-            var course = await _context.Courses.FindAsync(courseID);
+
+            var course = await _context.Courses
+                            .Include(c => c.CoursePosts)
+                            .FirstOrDefaultAsync(c => c.CourseID == courseID);
             if (course == null)
             {
                 return View("NotFound");
@@ -49,6 +52,38 @@ namespace EduSchool.Controllers
 
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult CourseStudents(int courseId)
+        {
+            var course = _context.Courses
+                .Include(c => c.Enrollments)
+                .ThenInclude(e => e.Student)
+                .FirstOrDefault(c => c.CourseID == courseId);
+
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            return View(course);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteEnrollment(int courseId, string studentId)
+        {
+            var enrollment = await _context.Enrollments
+                .FirstOrDefaultAsync(e => e.CourseID == courseId && e.StudentID == studentId);
+
+            if (enrollment == null)
+            {
+                return NotFound();
+            }
+
+            _context.Enrollments.Remove(enrollment);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "CourseDetails", new { courseId = courseId });
         }
     }
 }

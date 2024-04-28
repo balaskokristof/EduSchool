@@ -11,8 +11,6 @@
 
         public EduContext(DbContextOptions<EduContext> options) : base(options)
         {
-            //teszteléshez...
-            base.Database.EnsureCreated();
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Course> Courses { get; set; }
@@ -20,6 +18,7 @@
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Absence> Absences { get; set; }
         public DbSet<AbsenceType> AbsenceTypes { get; set; }
+        public DbSet<CoursePost> CoursePost { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -76,11 +75,6 @@
 
             modelBuilder.Entity<CoursePost>()
             .HasKey(cp => cp.CoursePostID);
-
-            modelBuilder.Entity<CoursePost>()
-                .HasOne(cp => cp.Course)
-                .WithMany()
-                .HasForeignKey(cp => cp.CourseID);
 
             modelBuilder.Entity<CoursePost>()
                 .HasOne(cp => cp.Author)
