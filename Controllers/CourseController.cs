@@ -25,7 +25,6 @@ namespace EduSchool.Controllers
             return View();
         }
 
-
         [Authorize(Roles = "Teacher")]
         [HttpPost]
         public async Task<IActionResult> Create(CourseViewModel model)
@@ -119,9 +118,8 @@ namespace EduSchool.Controllers
             return RedirectToAction("Index", "Home");
         }
   
-
         [Authorize(Roles = "Student")]
-        public IActionResult CourseEnroll()
+        public async Task<IActionResult> CourseEnroll()
         {
             return View();
         }

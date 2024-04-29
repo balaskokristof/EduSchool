@@ -139,7 +139,6 @@ namespace EduSchool
                 Console.WriteLine("Kritikus hiba! Az alkalmazás leáll! Hiba időpontja: "+DateTime.Now);
             }
 
-            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
         }
     }
 }

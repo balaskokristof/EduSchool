@@ -63,23 +63,6 @@ namespace EduSchool.Controllers
             return RedirectToAction("Index", "CourseDetails", new { courseId = coursePost.CourseID });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteEnrollment(int courseId, string studentId)
-        {
-            var enrollment = await _context.Enrollments
-                .FirstOrDefaultAsync(e => e.CourseID == courseId && e.StudentID == studentId);
-
-            if (enrollment == null)
-            {
-                return NotFound();
-            }
-
-            _context.Enrollments.Remove(enrollment);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("Details", new { id = courseId });
-        }
-
     }
 
 

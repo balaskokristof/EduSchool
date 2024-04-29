@@ -59,6 +59,24 @@ body {
     margin-bottom: 20px;
 }
 
+.card {
+    background-color: #3c3c3c;
+    color: #f1f1f1;
+    border: none;
+}
+
+.card-title {
+    color: #f1f1f1;
+}
+
+.card-text {
+    color: #b4b4b4;
+}
+
+.text-muted {
+    color: #7e7e7e !important;
+}
+
 .back-link {
     text-align: center;
 }
@@ -72,35 +90,49 @@ body {
             color: #b4b4b4;
         }
 
-        .modal-content {
-            background-color: #2d2d2d;
-            color: #f1f1f1;
-        }
-    
-        .modal-header {
-            border-bottom: 1px solid #3c3c3c;
-        }
-    
-        .modal-title {
-            color: #f1f1f1;
-        }
-    
-        .modal-body {
-            padding: 20px;
-        }
-    
-        .modal-footer {
-            border-top: 1px solid #3c3c3c;
-            padding: 10px 20px;
-        }
-    
-        .form-control {
-            background-color: #3c3c3c;
-            color: #f1f1f1;
-            border: none;
-        }
-    
-        .form-control:focus {
-            box-shadow: none;
-            background-color: #4a4a4a;
-        }
+.modal-content {
+    background-color: #2d2d2d;
+    color: #f1f1f1;
+}
+#postTitle,
+#postContent {
+    color: #f1f1f1;
+}
+
+#postTitle::placeholder,
+#postContent::placeholder {
+    color: #f1f1f1;
+}
+
+#postTitle:focus,
+#postContent:focus {
+    color: #f1f1f1;
+}
+.modal-header {
+    border-bottom: 1px solid #3c3c3c;
+}
+
+.modal-title {
+    color: #f1f1f1;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    border-top: 1px solid #3c3c3c;
+    padding: 10px 20px;
+}
+
+.form-control {
+    background-color: #3c3c3c;
+    color: #f1f1f1;
+    border: none;
+}
+
+    .form-control:focus {
+        box-shadow: none;
+        background-color: #4a4a4a;
+        color: #f1f1f1;
+    }

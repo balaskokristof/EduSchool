@@ -1,45 +1,64 @@
 ﻿@model EduSchool.Models.DataModel.Course
-
 <head>
-	<link rel="stylesheet" href="~/css/views/coursestudents.css">
-    </head>
+    <link rel="stylesheet" href="~/css/views/coursestudents.css">
+    <style>
+        .table {
+            background-color: #2d2d2d;
+            color: #f1f1f1;
+        }
 
+        .table thead th {
+            border-bottom: 2px solid #3c3c3c;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #3c3c3c;
+        }
+    </style>
+</head>
 <div class="course-details">
     <div class="course-header">
         <h2>@Model.Name - Tanulók</h2>
     </div>
-
     <div class="course-navigation">
         <a href="@Url.Action("Index", new { courseId = Model.CourseID })">Kurzus részletei</a>
     </div>
-
     <div class="course-info">
-        <table class="table table-dark">
-            <thead>
-                <tr>
-                    <th>Tanuló azonosítója</th>
-                    <th>Név</th>
-                    <th>Művelet</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var enrollment in Model.Enrollments)
-                {
+        @if (Model.Enrollments.Any())
+        {
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@enrollment.Student.UserID</td>
-                        <td>@enrollment.Student.FirstName @enrollment.Student.LastName</td>
-                        <td>
-                            <form asp-action="DeleteEnrollment" asp-route-courseId="@Model.CourseID" asp-route-studentId="@enrollment.Student.UserID" method="post">
-                                <button type="submit" class="btn btn-danger">Törlés</button>
-                            </form>
-                        </td>
+                        <th>Tanuló azonosítója</th>
+                        <th>Név</th>
+                        <th>Telefonszám</th>
+                        <th>Művelet</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var enrollment in Model.Enrollments)
+                    {
+                        <tr>
+                            <td>@enrollment.Student.UserID</td>
+                            <td>@enrollment.Student.FirstName @enrollment.Student.LastName</td>
+                            <td>@enrollment.Student.ContactPhoneNumber</td>
+                            <td>
+                                <form asp-action="DeleteEnrollment" asp-route-courseId="@Model.CourseID" asp-route-studentId="@enrollment.Student.UserID" method="post">
+                                    <button type="submit" class="btn btn-danger">Törlés</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-info" role="alert">
+                Jelenleg nincs egyetlen tanuló sem a kurzuson.
+            </div>
+        }
     </div>
-
-    <div class="back-link">
-        <a href="@Url.Action("Index")">Vissza a kurzusok listájához</a>
-    </div>
+    <br />
+        <a href="#" onclick="history.back(); return false;" class="btn btn-primary">Vissza</a>
 </div>

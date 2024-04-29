@@ -13,6 +13,7 @@ namespace EduSchool.Controllers
         {
             _context = context;
         }
+
         [Authorize]
         public async Task<IActionResult> IndexAsync(int courseID)
         {
@@ -54,12 +55,13 @@ namespace EduSchool.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult CourseStudents(int courseId)
+        [Authorize(Roles = "Teacher")]
+        public async Task<IActionResult> CourseStudents(int courseId)
         {
-            var course = _context.Courses
+            var course = await _context.Courses
                 .Include(c => c.Enrollments)
                 .ThenInclude(e => e.Student)
-                .FirstOrDefault(c => c.CourseID == courseId);
+                .FirstOrDefaultAsync(c => c.CourseID == courseId);
 
             if (course == null)
             {
@@ -69,6 +71,7 @@ namespace EduSchool.Controllers
             return View(course);
         }
 
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         public async Task<IActionResult> DeleteEnrollment(int courseId, string studentId)
         {
@@ -77,13 +80,37 @@ namespace EduSchool.Controllers
 
             if (enrollment == null)
             {
-                return NotFound();
+                return View("NotFound");
             }
 
             _context.Enrollments.Remove(enrollment);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "CourseDetails", new { courseId = courseId });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Teacher")]
+        public async Task<IActionResult> Delete(int courseId)
+        {
+            var course = await _context.Courses.FindAsync(courseId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            var loggedinUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var loggedinuser = await _context.Users.FindAsync(loggedinUser);
+
+            if (course.InstructorID != loggedinuser.UserID)
+            {
+                return Unauthorized();
+            }
+
+            _context.Courses.Remove(course);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

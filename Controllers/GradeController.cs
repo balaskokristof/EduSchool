@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace EduSchool.Controllers
 {
+    [Authorize]
     public class GradeController : Controller
     {
         private readonly EduContext _context;
@@ -218,6 +219,7 @@ namespace EduSchool.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         public async Task<ActionResult> Edit(int id, int gradeValue, string gradeTitle, int weight, string comment, DateTime gradeDate)
         {
@@ -244,6 +246,7 @@ namespace EduSchool.Controllers
             return Json(new { success = true });
         }
 
+        [Authorize(Roles="Teacher, Student")]
         [HttpPost]
         public async Task<ActionResult> GetGrade(int id)
         {
@@ -257,6 +260,7 @@ namespace EduSchool.Controllers
             return View("Edit", grade);
         }
 
+        [Authorize(Roles = "Teacher")]
         [HttpPost]
         public async Task<ActionResult> Delete(int gradeId)
         {

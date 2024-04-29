@@ -1,46 +1,80 @@
 ﻿@model List<EduSchool.ViewModels.AllCourseGradesViewModel1>
 
 <head>
-	<link rel="stylesheet" href="~/css/views/allcgrade.css">
-    </head>
+    <link rel="stylesheet" href="~/css/views/allcgrade.css">
+</head>
 
 <div class="container">
-    @foreach (var item in Model)
+    @if (!Model.Any() || !Model.First().Students.Any())
     {
-        <h2>Érdemjegyek kezelése</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Tanuló neve</th>
-                    <th>Jegyei</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var student in item.Students)
-                {
+        <div class="alert alert-info" role="alert">
+            Jelenleg nincs egyetlen tanuló sem a kurzuson.
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <h2>Érdemjegyek kezelése</h2>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@student.StudentName</td>
-                        <td class="grade-cell">
-                            @foreach (var grade in student.Grades)
-                            {
-                                <span class="grade-item" data-toggle="modal" data-target="#editGradeModal" onclick="openEditModal('@grade.GradeID', '@grade.GradeValue', '@grade.GradeTitle', '@grade.Weight', '@grade.Comment', '@grade.GradeDate.ToString("yyyy-MM-dd")')">@grade.GradeValue</span>
-                            }
-                        </td>
+                        <th>Tanuló neve</th>
+                        <th>Jegyei</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var student in item.Students)
+                    {
+                        <tr>
+                            <td>@student.StudentName</td>
+                            <td class="grade-cell">
+                                @if (student.Grades.Any())
+                                {
+                                    @foreach (var grade in student.Grades)
+                                    {
+                                        <span class="grade-item" style="background-color: @GetGradeColor(grade.GradeValue);" data-toggle="modal" data-target="#editGradeModal" onclick="openEditModal('@grade.GradeID', '@grade.GradeValue', '@grade.GradeTitle', '@grade.Weight', '@grade.Comment', '@grade.GradeDate.ToString("yyyy-MM-dd")')">@grade.GradeValue</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <br />
+        <a href="#" onclick="history.back(); return false;" class="btn btn-primary">Vissza</a>
     }
 </div>
 
-<div class="modal fade" id="editGradeModal" tabindex="-1" role="dialog" aria-labelledby="editGradeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+
+@functions {
+    public string GetGradeColor(int gradeValue)
+    {
+        switch (gradeValue)
+        {
+            case 5: return "#8B0000"; 
+            case 4: return "#FF4500"; 
+            case 3: return "#FFA500"; 
+            case 2: return "#9ACD32"; 
+            case 1: return "#006400";
+            default: return "";
+        }
+    }
+}
+
+
+<div class="modal fade" id="editGradeModal" tabindex="-1" aria-labelledby="editGradeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editGradeModalLabel">Jegy szerkesztése</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Bezárás">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Bezárás"></button>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="gradeId" />
@@ -66,7 +100,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Bezárás</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
                 <button type="button" class="btn btn-primary" onclick="editGrade()">Mentés</button>
                 <button type="button" class="btn btn-danger" onclick="deleteGrade()">Törlés</button>
             </div>
