@@ -242,6 +242,11 @@ namespace EduSchool.Controllers
                 return Json(new { success = false, message = "A jegy értékének 1 és 5 között kell lennie!" });
             }
 
+            if (weight != 100 && weight != 200 && weight != 300)
+            {
+                return Json(new { success = false, message = "A súlyozás csak 100, 200 és 300 lehet!" });
+            }
+
             grade.GradeValue = gradeValue;
             grade.GradeTitle = gradeTitle;
             grade.Weight = weight;

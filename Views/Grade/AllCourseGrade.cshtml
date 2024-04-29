@@ -21,6 +21,7 @@
                     <tr>
                         <th>Tanuló neve</th>
                         <th>Jegyei</th>
+                        <th>Átlag</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,11 +42,24 @@
                                     <span>-</span>
                                 }
                             </td>
+                            <td>
+                                @if (student.Grades.Any())
+                                {
+                                    var average = student.Grades.Average(g => g.GradeValue);
+                                    var averageClass = average < 1.8 ? "text-danger" : "";
+                                    <span class="@averageClass">@($"{average:F2}")</span>
+                                }
+
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </td>
                         </tr>
                     }
                 </tbody>
             </table>
-        }
+        }   
 
         <br />
         <a href="#" onclick="history.back(); return false;" class="btn btn-primary">Vissza</a>
@@ -58,11 +72,11 @@
     {
         switch (gradeValue)
         {
-            case 5: return "#8B0000"; 
-            case 4: return "#FF4500"; 
-            case 3: return "#FFA500"; 
-            case 2: return "#9ACD32"; 
-            case 1: return "#006400";
+            case 5: return "#006400";
+            case 4: return "#9ACD32";
+            case 3: return "#FFA500";
+            case 2: return "#FF4500";
+            case 1: return "#8B0000";
             default: return "";
         }
     }
@@ -110,7 +124,6 @@
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
             $('.grade-item').on('click', function () {
