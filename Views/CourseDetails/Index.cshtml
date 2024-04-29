@@ -106,7 +106,7 @@
                         <div class="card-body">
                             <h5 class="card-title">@post.Title</h5>
                             <p class="card-text">@post.Content</p>
-                            <p class="card-text"><small class="text-muted">Közzétéve: @post.PostDate.ToString("yyyy.MM.dd HH:mm") - @post.Author.FirstName @post.Author.LastName</small></p>
+                            <p class="card-text"><small class="text-muted">Közzétéve: @post.PostDate.ToString("yyyy.MM.dd HH:mm")</small></p>
                             @if (User.IsInRole("Teacher"))
                             {
                                 <form asp-action="Delete" asp-controller="CoursePost" asp-route-postId="@post.CoursePostID" method="post">

@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace EduSchool.Controllers
 {
-    [Authorize(Roles = "Teacher")]
+    [Authorize]
     public class CoursePostController : Controller
     {
         private readonly EduContext _context;
