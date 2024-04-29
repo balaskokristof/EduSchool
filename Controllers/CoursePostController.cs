@@ -54,7 +54,7 @@ namespace EduSchool.Controllers
 
             if (coursePost == null)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             _context.CoursePost.Remove(coursePost);

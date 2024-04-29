@@ -28,7 +28,7 @@ namespace EduSchool.Controllers
 
             if (course == null || course.InstructorID != loggedInUserId)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             var students = await _context.Users
@@ -51,7 +51,14 @@ namespace EduSchool.Controllers
         [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> RecordAbsence(RecordAbsenceViewModel model)
         {
-                if (model.StudentID == null)
+            var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var course = await _context.Courses.FindAsync(model.CourseID);
+            if (course == null || course.InstructorID != loggedInUserId)
+            {
+                return NotFound();
+            }
+
+            if (model.StudentID == null)
                 {
                     TempData["ErrorMessage"] = "Kérjük, válasszon ki egy tanulót!";
                     return RedirectToAction("RecordAbsence", new { courseId = model.CourseID });
@@ -89,7 +96,7 @@ namespace EduSchool.Controllers
 
             if (course == null || course.InstructorID != loggedInUserId)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             var absenceTypes = await _context.AbsenceTypes.ToListAsync();
@@ -115,7 +122,7 @@ namespace EduSchool.Controllers
             var absence = await _context.Absences.FindAsync(absenceId);
             if (absence == null)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             return PartialView(absence);
@@ -126,6 +133,14 @@ namespace EduSchool.Controllers
         [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Edit(Absence absence)
         {
+            var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var course = await _context.Courses.FindAsync(absence.CourseID);
+
+            if(course.InstructorID != loggedInUserId)
+            {
+                return NotFound();
+            }
+
             var courseExists = await _context.Courses.AnyAsync(c => c.CourseID == absence.CourseID);
             if (!courseExists)
             {
@@ -156,7 +171,7 @@ namespace EduSchool.Controllers
 
             if (!isEnrolled)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             var absences = await _context.Absences

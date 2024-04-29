@@ -23,7 +23,7 @@ namespace EduSchool.Controllers
                             .FirstOrDefaultAsync(c => c.CourseID == courseID);
             if (course == null)
             {
-                return View("NotFound");
+                return NotFound();
             }
             var loggedinUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loggedinuser = await _context.Users.FindAsync(loggedinUser);
@@ -58,6 +58,14 @@ namespace EduSchool.Controllers
         [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> CourseStudents(int courseId)
         {
+            var loggedinUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var c1 = await _context.Courses.FindAsync(courseId);
+            if (c1 == null || c1.InstructorID != loggedinUser)
+            {
+                return NotFound();
+            }
+
             var course = await _context.Courses
                 .Include(c => c.Enrollments)
                 .ThenInclude(e => e.Student)
@@ -80,7 +88,7 @@ namespace EduSchool.Controllers
 
             if (enrollment == null)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             _context.Enrollments.Remove(enrollment);

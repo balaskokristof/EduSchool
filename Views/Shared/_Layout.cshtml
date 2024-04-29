@@ -51,12 +51,18 @@
                         {
                             if(User.IsInRole("Student"))
 							{
+                                <li class="nav-item">
+									<a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Kurzusok</a>
+                                    </li>
 								<li class="nav-item">
 									<a class="nav-link text-white" asp-area="" asp-controller="Course" asp-action="CourseEnroll">Kurzus felvétele</a>
 								</li>
 							}
                             if (User.IsInRole("Teacher"))
 							{
+                                <li class="nav-item">
+									<a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Kurzusok</a>
+                                    </li>
 								<li class="nav-item">
 									<a class="nav-link text-white" asp-area="" asp-controller="Course" asp-action="Index">Új kurzus létrehozása</a>
 								</li>

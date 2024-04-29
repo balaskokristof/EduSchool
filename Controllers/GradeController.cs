@@ -29,14 +29,14 @@ namespace EduSchool.Controllers
             var course = await _context.Courses.FindAsync(courseId);
             if (course == null)
             {
-
+                return NotFound();
             }
 
             var loggedinUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loggedinUser = await _context.Users.FindAsync(loggedinUserId);
             if (loggedinUser == null)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             if (course.InstructorID != loggedinUser.UserID)
@@ -65,6 +65,13 @@ namespace EduSchool.Controllers
         [Authorize(Roles = "Teacher")]
         public IActionResult Create(int courseId, List<StudentGradeViewModel> students, string gradeTitle)
         {
+            var loggedinUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var course = _context.Courses.FirstOrDefault(c => c.CourseID == courseId);
+            if(loggedinUserId != course.InstructorID)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (students == null || students.All(s => s.SelectedGradeValue == 0 && s.Weight == 0 && string.IsNullOrEmpty(s.Comment)))
             {
                 TempData["ErrorMessage"] = "Nem adott meg egyetlen tanulót sem.";
@@ -120,7 +127,7 @@ namespace EduSchool.Controllers
 
             if (course == null)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             var loggedinUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -174,19 +181,19 @@ namespace EduSchool.Controllers
 
             if (student == null)
             {
-                return View("NotFound");  
+                return NotFound();  
             }
 
             var enrollment = student.Enrollments.FirstOrDefault(e => e.CourseID == courseId);
             if (enrollment == null)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseID == courseId);
             if (course == null)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             var grades = student.Grades.Where(g => g.CourseID == courseId).ToList();
@@ -268,7 +275,7 @@ namespace EduSchool.Controllers
 
             if (grade == null)
             {
-                return View("NotFound");
+                return NotFound();
             }
 
             _context.Grades.Remove(grade);

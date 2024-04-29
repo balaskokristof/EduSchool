@@ -142,6 +142,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cnNlXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Error/GeneralError.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcR2VuZXJhbEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Error/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcTm90Rm91bmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Grade/AllCourseGrade.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZGVcQWxsQ291cnNlR3JhZGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -160,10 +168,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Shared/NotFound.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXE5vdEZvdW5kLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kristof/source/repos/EduSchool/EduSchool/Views/Shared/_ErrorMessage.cshtml]

@@ -702,6 +702,14 @@
             },
             "Patterns": null
           },
+          "generror.svg": {
+            "Children": null,
+            "Asset": {
+              "ContentRootIndex": 0,
+              "SubPath": "pic/generror.svg"
+            },
+            "Patterns": null
+          },
           "undraw_login_re_4vu2.svg": {
             "Children": null,
             "Asset": {

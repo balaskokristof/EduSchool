@@ -40,7 +40,7 @@
                     {
                         <tr>
                             <td>@enrollment.Student.UserID</td>
-                            <td>@enrollment.Student.FirstName @enrollment.Student.LastName</td>
+                            <td>@enrollment.Student.LastName @enrollment.Student.FirstName</td>
                             <td>@enrollment.Student.ContactPhoneNumber</td>
                             <td>
                                 <form asp-action="DeleteEnrollment" asp-route-courseId="@Model.CourseID" asp-route-studentId="@enrollment.Student.UserID" method="post">

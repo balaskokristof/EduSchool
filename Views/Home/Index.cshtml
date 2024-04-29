@@ -94,7 +94,8 @@
     {
         <div class="jumbotron">
             <h1 class="display-4">Üdvözöljük, @user.UserName!</h1>
-            <p class="lead">Fedezze fel az elérhető kurzusokat, és mélyítse el tudását az EduSchool segítségével.</p>
+            <p class="lead">Fedezze fel az elérhető kurzusokat, és tekintse meg a napi híreket a kurzusokra kattintva.</p>
+            <p class="lead">Nem lát még egyetlen kurzust sem? Itt az ideje hogy felvegyen egyet!</p>
         </div>
 
         <h2>Kurzusok</h2>
@@ -142,10 +143,17 @@
 else
 {
     <div class="text-center">
-        <div>
+        <div class="jumbotron">
             <h1 class="display-4">Üdvözöljük az EduSchool oldalon!</h1>
-            <p class="lead">Az oldal használatájoz kérem jelentkezzen be vagy regisztráljon!</p>
+            <p class="lead">Az oldal használatához kérem jelentkezzen be vagy regisztráljon!</p>
+            <hr class="my-4">
+            <p>Az EduSchool egy innovatív online oktatási platform, amely lehetővé teszi, hogy bármikor nyomon tudja követni a tanfolyamon nyújtott teljesítményét.</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="~/Identity/Account/Login" role="button">Bejelentkezés</a>
+                <a class="btn btn-success btn-lg" href="~/Identity/Account/Register" role="button">Regisztráció</a>
+            </p>
         </div>
         <img src="~/pic/undraw_login_re_4vu2.svg" alt="login" class="img-fluid" style="max-width: 50%; height: auto;">
     </div>
+
 }
