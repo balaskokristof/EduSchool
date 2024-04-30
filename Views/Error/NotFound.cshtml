@@ -1,18 +1,72 @@
 ﻿@{
-    ViewData["Title"] = "404 - Not Found";
+    ViewData["Title"] = "404 - Az oldal nem található";
 }
-
 <head>
     <link rel="stylesheet" href="~/css/startpage.css" />
-</head>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+        }
 
+        .container {
+            margin-top: 30px;
+        }
+
+        .error-container {
+            text-align: center;
+        }
+
+        .error-icon {
+            font-size: 100px;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+
+        .error-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .error-details {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .error-image {
+            display: block;
+            margin: 0 auto;
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+            .btn-primary:hover {
+                background-color: #004085;
+                border-color: #003c7e;
+            }
+    </style>
+</head>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1>404 - Az oldal nem található</h1>
-            <p>Sajnáljuk, de az ön által keresett oldal nem található.</p>
-            <p>Lehetséges, hogy az oldal már nem létezik, vagy hibás az URL.</p>
-            <p>Kérjük, ellenőrizze az URL-t, vagy navigáljon vissza a <a href="@Url.Action("Index", "Home")">kezdőlapra</a>.</p>
+    <div class="error-container">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-triangle"></i>
         </div>
+        <h1 class="error-title">404 - Az oldal nem található</h1>
+        <p class="error-message">Sajnáljuk, de az Ön által keresett oldal nem található.</p>
+        <img src="~/pic/search.svg" class="error-image" alt="Keresés kép" />
+        <p class="error-details">Mindenhol kerestük, de nem találtuk. Talán egy másik oldalt keres?</p>
+        <p class="error-details">Lehetséges, hogy az oldal már nem létezik, vagy hibás az URL.</p>
+        <p class="error-details">Kérjük, ellenőrizze az URL-t, vagy navigáljon vissza a <a href="@Url.Action("Index", "Home")">kezdőlapra</a>.</p>
     </div>
 </div>

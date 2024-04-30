@@ -710,6 +710,14 @@
             },
             "Patterns": null
           },
+          "search.svg": {
+            "Children": null,
+            "Asset": {
+              "ContentRootIndex": 0,
+              "SubPath": "pic/search.svg"
+            },
+            "Patterns": null
+          },
           "undraw_login_re_4vu2.svg": {
             "Children": null,
             "Asset": {

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "65CWrLGmklJbIwi/ucQtHIlrulOdJL6p8G6fM/qh5eg=",
+  "Hash": "q3KyC0PQ+KB0k0YlDX3FIwfoi20dLGwYillvKNHihJM=",
   "Source": "EduSchool",
   "BasePath": "_content/EduSchool",
   "Mode": "Default",
@@ -2675,6 +2675,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\pic\\generror.svg"
+    },
+    {
+      "Identity": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\pic\\search.svg",
+      "SourceId": "EduSchool",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\",
+      "BasePath": "_content/EduSchool",
+      "RelativePath": "pic/search.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\pic\\search.svg"
     },
     {
       "Identity": "C:\\Users\\Kristof\\source\\repos\\EduSchool\\EduSchool\\wwwroot\\pic\\undraw_login_re_4vu2.svg",
